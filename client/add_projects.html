@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      rel="shortcut icon"
+      href="./dist/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="/libs/bootstrap-icons/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
+    <title>Digital projects</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="./">
+          <img
+            src="./dist/images/logo.png"
+            alt="Logo Identity Block"
+            width="60px"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="./">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./profiles.html">Profiles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./projects.html">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./add_projects.html">Add Projects</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownProfile"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Profile
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownProfile"
+              >
+                <li>
+                  <a class="dropdown-item" href="./my_profile.html"
+                    >My profile</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" id="logout">Logout</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container pb-5 pt-4">
+      <div class="row text-white">
+        <div class="col-12">
+          <form
+            class="d-flex mb-3 align-items-center"
+            role="search"
+            id="searchForm"
+            autocomplete="off"
+          >
+            <input
+              class="form-control me-2 bg-dark text-white search"
+              id="searchInput"
+              type="search"
+              placeholder="Search by owner ID..."
+              aria-label="Search by owner ID..."
+            />
+
+            <button class="btn btn-dark me-1" type="submit">Search</button>
+            <button class="btn btn-dark" type="reset">Reset</button>
+          </form>
+        </div>
+
+        <div class="col-4">
+          <div class="form-floating mb-3">
+            <select
+              placeholder="Enter the status"
+              class="form-control bg-dark text-white inputs"
+              id="categorySearchInput"
+            >
+              <option value="All" selected>All</option>
+              <option value="Software">Software</option>
+              <option value="Video games">Video games</option>
+              <option value="Applications">Applications</option>
+              <option value="Architecture">Architecture</option>
+              <option value="Design">Design</option>
+              <option value="Marketing">Marketing</option>
+            </select>
+            <label for="categorySearchInput">Category:</label>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="form-floating mb-3">
+            <select
+              placeholder="Enter the status"
+              class="form-control bg-dark text-white inputs"
+              required
+              id="statusSearchInput"
+            >
+              <option value="All" selected>All</option>
+              <option value="Available">Available</option>
+              <option value="Sold">Sold</option>
+            </select>
+            <label for="statusSearchInput">Enter the status</label>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="form-floating mb-2">
+            <input
+              type="number"
+              name="price"
+              placeholder="Price in ETH"
+              step="any"
+              class="form-control bg-dark text-white inputs"
+              required
+              id="priceSearchInput"
+            />
+            <label for="priceSearchInput">Price in ETH</label>
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <div class="card card-body mb-4 bg-dark text-center">
+            <h1><i class="bi bi-grid"></i> BlockProjects</h1>
+            <h6 class="text-secondary">
+              Decentralized digital project application
+            </h6>
+            <br />
+            <span>
+              <i class="bi bi-wallet2"></i> Wallet: <span id="account"></span>
+            </span>
+            <p>
+              <i class="bi bi-coin"></i> Balance: <span id="balance"></span> ETH
+            </p>
+          </div>
+
+          <form class="card card-body bg-dark" id="projectForm">
+            <h4 class="text-center">
+              <i class="bi bi-cast"></i> Upload project
+            </h4>
+
+            <div class="file-upload1">
+              <div class="image-upload-wrap1">
+                <input
+                  id="pictureInput1"
+                  class="file-upload-input1"
+                  type="file"
+                  name="foto"
+                  onchange="readURL1(this);"
+                  accept="image/*"
+                  required
+                />
+                <div class="drag-text1">
+                  <h3>Drag an image or click here</h3>
+                </div>
+              </div>
+              <div class="file-upload-content1">
+                <img class="file-upload-image1" src="#" alt="Imagen subida" />
+                <div class="image-title-wrap1">
+                  <button
+                    type="button"
+                    onclick="removeUpload1()"
+                    class="remove-image1"
+                  >
+                    Delete
+                    <span class="image-title1">Selected image</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-floating mb-2 mt-2">
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter the name"
+                class="form-control bg-dark text-white inputs"
+                id="nameInput"
+                required
+              />
+              <label for="nameInput">Enter the name</label>
+            </div>
+
+            <div class="form-floating mb-2">
+              <textarea
+                title="Required field / Letters only"
+                pattern="[a-zA-Zá-úÁ-Ú ]+"
+                name="description"
+                placeholder="Enter the description"
+                class="form-control bg-dark text-white inputs"
+                id="descriptionInput"
+                style="height: 100px"
+                required
+              ></textarea>
+              <label for="descriptionInput">Enter the description</label>
+            </div>
+
+            <div class="form-floating mb-2">
+              <select
+                name="category"
+                placeholder="Enter the category"
+                class="form-control bg-dark text-white inputs"
+                required
+                id="categoryInput"
+              >
+                <option value="Software" selected>Software</option>
+                <option value="Video games">Video games</option>
+                <option value="Applications">Applications</option>
+                <option value="Architecture">Architecture</option>
+                <option value="Design">Design</option>
+                <option value="Marketing">Marketing</option>
+              </select>
+              <label for="categoryInput">Enter the category</label>
+            </div>
+
+            <div class="form-floating mb-2" id="contCategory">
+              <input
+                type="text"
+                name="link"
+                placeholder="Enter the link to demo"
+                class="form-control bg-dark text-white inputs"
+                required
+                id="linkInput"
+              />
+              <label for="linkInput">Enter the link to demo</label>
+            </div>
+
+            <div class="form-floating mb-2">
+              <input
+                type="text"
+                name="ownerId"
+                placeholder="Enter the owner ID"
+                class="form-control bg-dark text-white inputs"
+                required
+                id="ownerIdInput"
+              />
+              <label for="ownerIdInput">Enter the owner ID</label>
+            </div>
+
+            <div class="form-floating mb-2">
+              <select
+                name="status"
+                placeholder="Enter the status"
+                class="form-control bg-dark text-white inputs"
+                required
+                id="statusInput"
+              >
+                <option value="" disabled selected>Select...</option>
+                <option value="Available">Available</option>
+                <option value="Sold">Sold</option>
+              </select>
+              <label for="statusInput">Enter the status</label>
+            </div>
+
+            <div class="form-floating mb-2">
+              <input
+                type="number"
+                name="price"
+                placeholder="Enter the price (ETH)"
+                step="any"
+                class="form-control bg-dark text-white inputs"
+                required
+                id="priceInput"
+              />
+              <label for="priceInput">Enter the price (ETH)</label>
+            </div>
+
+            <button class="btn btn-primary">
+              Save <i class="bi bi-save"></i>
+            </button>
+          </form>
+        </div>
+        <div class="col-md-7">
+          <div id="projectsList"></div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <form class="modal-content" id="projectFormEdit">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editModalLabel">Edit project</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="idInputEdit" name="idEdit" />
+            <div class="row">
+              <div class="col-12">
+                <div class="file-upload mb-3">
+                  <label for="pictureInput">Image</label>
+                  <div class="image-upload-wrap">
+                    <input
+                      id="pictureInput"
+                      class="file-upload-input"
+                      type="file"
+                      name="foto"
+                      onchange="readURL(this);"
+                      accept="image/*"
+                    />
+                    <div class="drag-text">
+                      <h3>Drag an image or click here</h3>
+                    </div>
+                  </div>
+                  <div class="file-upload-content">
+                    <img
+                      class="file-upload-image"
+                      src="#"
+                      alt="Imagen subida"
+                    />
+                    <div class="image-title-wrap">
+                      <button
+                        type="button"
+                        onclick="removeUpload()"
+                        class="remove-image"
+                      >
+                        Delete
+                        <span class="image-title">Selected image</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-12">
+                <div class="form-floating mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    title="Required field / Letters only"
+                    pattern="[a-zA-Zá-úÁ-Ú ]+"
+                    placeholder="Enter the name"
+                    id="nameInputEdit"
+                    name="nameEdit"
+                    required
+                  />
+                  <label for="nameInputEdit">Enter the name</label>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-floating mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    title="Required field"
+                    placeholder="Enter the owner ID"
+                    id="ownerIdInputEdit"
+                    name="ownerIdEdit"
+                    required
+                  />
+                  <label for="ownerIdInputEdit">Enter the owner ID</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <div class="form-floating mb-2">
+                  <textarea
+                    name="descriptionEdit"
+                    placeholder="Enter the description"
+                    class="form-control"
+                    id="descriptionInputEdit"
+                    style="height: 100px"
+                    required
+                  ></textarea>
+                  <label for="descriptionInputEdit"
+                    >Enter the description</label
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-12">
+                <div class="form-floating mb-2">
+                  <select
+                    name="categoryEdit"
+                    placeholder="Enter the category"
+                    class="form-control"
+                    required
+                    id="categoryInputEdit"
+                  >
+                    <option value="" disabled selected>Select...</option>
+                    <option value="Software">Software</option>
+                    <option value="Video games">Video games</option>
+                    <option value="Applications">Applications</option>
+                    <option value="Architecture">Architecture</option>
+                    <option value="Design">Design</option>
+                    <option value="Marketing">Marketing</option>
+                  </select>
+                  <label for="categoryInputEdit">Enter the category</label>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-floating mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    title="Required field / Letters only"
+                    placeholder="Enter the link to demo"
+                    id="linkInputEdit"
+                    name="linkEdit"
+                    required
+                  />
+                  <label for="linkInputEdit">Enter the link to demo</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-12">
+                <div class="form-floating mb-2">
+                  <select
+                    name="status"
+                    placeholder="Enter the status"
+                    class="form-control"
+                    required
+                    id="statusInputEdit"
+                  >
+                    <option value="" disabled selected>Select...</option>
+                    <option value="Available">Available</option>
+                    <option value="Sold">Sold</option>
+                  </select>
+                  <label for="statusInputEdit">Enter the status</label>
+                </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <div class="form-floating mb-2">
+                  <input
+                    type="number"
+                    name="price"
+                    placeholder="Enter the price (ETH)"
+                    step="any"
+                    class="form-control"
+                    required
+                    id="priceInputEdit"
+                  />
+                  <label for="priceInputEdit">Enter the price (ETH)</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-success">
+              <i class="bi bi-pencil-square"></i> Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- scripts -->
+    <script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./libs/@truffle/contract/browser-dist/truffle-contract.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/addprojects.js"></script>
+    <script src="./js/uiaddprojects.js"></script>
+  </body>
+</html>

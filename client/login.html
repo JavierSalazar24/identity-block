@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      rel="shortcut icon"
+      href="./dist/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="/libs/bootstrap-icons/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img
+            src="./dist/images/logo.png"
+            alt="Logo Identity Block"
+            width="60px"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="./">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./profiles.html">Profiles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./projects.html">Projects</a>
+            </li>
+            <li class="nav-item" id="navLoginAdd"></li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Login
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdown"
+              >
+                <li><a class="dropdown-item" href="./login.html">Login</a></li>
+                <li>
+                  <a class="dropdown-item" href="./register.html">Register</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown" id="navProfileLogout"></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-5">
+      <div class="row text-white justify-content-center">
+        <div class="col-8 text-center">
+          <div class="card card-body mb-4 bg-dark">
+            <h1><i class="bi bi-grid"></i> BlockProjects</h1>
+            <h6 class="text-secondary">Login</h6>
+            <br />
+            <span
+              ><i class="bi bi-wallet2"></i> Wallet: <span id="account"></span
+            ></span>
+            <p>
+              <i class="bi bi-coin"></i> Balance: <span id="balance"></span> ETH
+            </p>
+          </div>
+        </div>
+        <div class="col-10">
+          <form class="card card-body bg-dark" id="loginForm">
+            <h4 class="text-center">
+              <i class="bi bi-person-badge"></i> Login
+            </h4>
+
+            <div class="form-floating mb-2 mt-2">
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                class="form-control bg-dark text-white inputs"
+                id="usernameInput"
+                required
+              />
+              <label for="usernameInput">Personal ID</label>
+            </div>
+
+            <div class="form-floating mb-2">
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                class="form-control bg-dark text-white inputs"
+                id="passwordInput"
+                required
+              />
+              <label for="passwordInput">Password</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              Login <i class="bi bi-save"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./libs/@truffle/contract/browser-dist/truffle-contract.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/login.js"></script>
+    <script src="./js/uilogin.js"></script>
+  </body>
+</html>
