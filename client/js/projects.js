@@ -72,8 +72,8 @@ App = {
       const projectPrice = project[9];
       const projectCreatedAt = project[12];
 
-      $("#projectsList").append(
-        `<div class="card bg-dark mb-2 rounded text-white">
+      let projectHTML = `
+        <div class="card bg-dark mb-2 rounded text-white">
           <div class="text-center">
             <img src="https://ipfs.io/ipfs/${projectImg}" alt="Image of ${projectName}" width="100%" class="mb-2 img-fluid rounded">
           </div>
@@ -97,27 +97,41 @@ App = {
                 projectCreatedAt * 1000
               ).toLocaleString()}
             </p>
-            <div class="mt-3"><button data-id="${projectId}" data-price="${projectPrice}" class="buy btn btn-success">Buy</button></div>
+      `;
+
+      if (projectStatus == "Available") {
+        projectHTML += `
+            <div class="mt-3">
+              <button data-id="${projectId}" data-price="${projectPrice}" class="buy btn btn-success">Buy</button>
+            </div>
           </div>
-        </div>`
-      );
+        </div>`;
+      } else {
+        projectHTML += `</div></div>`;
+      }
+
+      $("#projectsList").append(projectHTML);
     }
 
     $(document).on("click", ".buy", async function (e) {
       e.preventDefault();
       let id = $(this).data("id");
-      let recipient = App.account;
       let price = $(this).data("price");
 
-      const result = await App.ProjectContract.transfer(id, recipient, price, {
-        from: App.account,
-      });
-
-      console.log(result);
+      App.buyProject(id, price);
     });
   },
 
-  buyProject: async (id, price) => {},
+  buyProject: async (id, amount) => {
+    const price = web3.utils.toWei(amount.toString(), "ether");
+
+    const result = await App.ProjectContract.transfer(id, {
+      from: App.account,
+      value: price,
+    });
+
+    window.location.reload();
+  },
 
   searchOne: async (data, searchType, data2) => {
     const result = await App.ProjectContract.searchOne(data, searchType, data2);

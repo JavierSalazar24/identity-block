@@ -593,12 +593,7 @@ contract ProjectContract {
         return address(account).balance;
     }
 
-    function transfer(
-        uint _id,
-        address recipient,
-        uint256 amount
-    ) public payable {
-        payable(recipient).transfer(amount);
+    function transfer(uint _id) public payable {
         Project storage _project = projects[_id];
         _project.projectStatus = "Sold";
 

@@ -1,27 +1,27 @@
 {
   "contractName": "Strings",
   "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.6+commit.11564f7e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ProjectContract.sol\":\"Strings\"},\"evmVersion\":\"berlin\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ProjectContract.sol\":{\"keccak256\":\"0x299276622a51a73416af36690361486388b341ec43931b92f6cd701cc49790d0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4c5235c8b4c8726818e68fd2321ea42dd31d6efc85e1f909db4e98a0813e27fd\",\"dweb:/ipfs/QmTQeywNp4k1im5pLMzwUPip83vdC8gLEmGK82qk7fHVXE\"]}},\"version\":1}",
-  "bytecode": "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212209d2cce6c5b3497c7645bc8ffbbc0bebcbdd0c71ea1f74071c6749f0c68ae8cc364736f6c63430008060033",
-  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212209d2cce6c5b3497c7645bc8ffbbc0bebcbdd0c71ea1f74071c6749f0c68ae8cc364736f6c63430008060033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.6+commit.11564f7e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ProjectContract.sol\":\"Strings\"},\"evmVersion\":\"berlin\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ProjectContract.sol\":{\"keccak256\":\"0x4e448794578c60696466921e9839c401fabf3fd499cc499aeef6588c8b93a558\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://89ddbfadfcefb65bf7fcbaa865d8e0731a0281d5fa0886e7062070b7bfabc881\",\"dweb:/ipfs/QmRW6Yh7Zw9jHASQ48vxtRwiTBECsWnbJ5NhvPhzpiRucz\"]}},\"version\":1}",
+  "bytecode": "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220f943f8a15d10b02e589c661673b6a82542b57a7ddcbed4c465433a027c861d1f64736f6c63430008060033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220f943f8a15d10b02e589c661673b6a82542b57a7ddcbed4c465433a027c861d1f64736f6c63430008060033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
   "sourceMap": "69:576:2:-:0;;;;;;;;;;;;;;;-1:-1:-1;;;69:576:2;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "69:576:2:-:0;;;;;;;;",
-  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.4.22 <0.9.0;\r\n\r\nlibrary Strings {\r\n    function concatenate(\r\n        string memory _a,\r\n        string memory _b\r\n    ) internal pure returns (string memory) {\r\n        bytes memory _ba = bytes(_a);\r\n        bytes memory _bb = bytes(_b);\r\n        string memory ab = new string(_ba.length + _bb.length);\r\n        bytes memory bab = bytes(ab);\r\n\r\n        uint k = 0;\r\n        for (uint i = 0; i < _ba.length; i++) {\r\n            bab[k++] = _ba[i];\r\n        }\r\n\r\n        for (uint i = 0; i < _bb.length; i++) {\r\n            bab[k++] = _bb[i];\r\n        }\r\n\r\n        return string(bab);\r\n    }\r\n}\r\n\r\ncontract ProjectContract {\r\n    using Strings for *;\r\n\r\n    constructor() {\r\n        createProject(\r\n            \"QmRcnWy3suBkHFxq2sQcpXwe3cNiGkduE8QN95QkVwqEqk\",\r\n            \"Up Trading Experts\",\r\n            \"Sitio web de la empresa Up Trading Experts\",\r\n            \"Software\",\r\n            \"https://uptradingexperts.com/\",\r\n            \"SATJ000704HDGLRVA4\",\r\n            \"Available\",\r\n            \"1\",\r\n            0xd89F7A34e8291FBaCd15572201b46d408E5D1DBB\r\n        );\r\n    }\r\n\r\n    uint public projectCount = 0;\r\n\r\n    struct Project {\r\n        uint id;\r\n        string img;\r\n        string name;\r\n        string description;\r\n        string category;\r\n        string link;\r\n        string ownerId;\r\n        bytes32 ownerIdEncrypt;\r\n        string projectStatus;\r\n        string price;\r\n        address account;\r\n        bytes32 projectId;\r\n        uint createdAt;\r\n    }\r\n\r\n    mapping(uint => Project) public projects;\r\n\r\n    function uniqueProject(string memory data) public pure returns (bytes32) {\r\n        bytes32 hash = keccak256(bytes(data));\r\n        return hash;\r\n    }\r\n\r\n    function createProject(\r\n        string memory _img,\r\n        string memory _name,\r\n        string memory _description,\r\n        string memory _category,\r\n        string memory _link,\r\n        string memory _ownerId,\r\n        string memory _projectStatus,\r\n        string memory _price,\r\n        address _account\r\n    ) public {\r\n        projectCount++;\r\n        bytes32 projectId = uniqueProject(_ownerId.concatenate(_name));\r\n        bytes32 ownerIdEncrypt = uniqueProject(_ownerId);\r\n\r\n        projects[projectCount] = Project(\r\n            projectCount,\r\n            _img,\r\n            _name,\r\n            _description,\r\n            _category,\r\n            _link,\r\n            _ownerId,\r\n            ownerIdEncrypt,\r\n            _projectStatus,\r\n            _price,\r\n            _account,\r\n            projectId,\r\n            block.timestamp\r\n        );\r\n    }\r\n\r\n    function updateProject(\r\n        uint _id,\r\n        string memory _img,\r\n        string memory _name,\r\n        string memory _description,\r\n        string memory _category,\r\n        string memory _link,\r\n        string memory _ownerId,\r\n        string memory _projectStatus,\r\n        string memory _price\r\n    ) public {\r\n        bytes32 projectId = uniqueProject(_ownerId.concatenate(_name));\r\n        bytes32 ownerIdEncrypt = uniqueProject(_ownerId);\r\n\r\n        Project storage _project = projects[_id];\r\n        _project.img = _img;\r\n        _project.name = _name;\r\n        _project.description = _description;\r\n        _project.category = _category;\r\n        _project.link = _link;\r\n        _project.ownerId = _ownerId;\r\n        _project.ownerIdEncrypt = ownerIdEncrypt;\r\n        _project.projectStatus = _projectStatus;\r\n        _project.price = _price;\r\n        _project.projectId = projectId;\r\n\r\n        projects[_id] = _project;\r\n    }\r\n\r\n    function deleteProject(uint _id) public {\r\n        delete projects[_id];\r\n        projectCount--;\r\n    }\r\n\r\n    function stringToBytes32(\r\n        string memory _string\r\n    ) public pure returns (bytes32) {\r\n        require(bytes(_string).length <= 32, \"String too long\");\r\n\r\n        bytes32 result;\r\n        assembly {\r\n            result := mload(add(_string, 32))\r\n        }\r\n        return result;\r\n    }\r\n\r\n    function searchOne(\r\n        string memory _data,\r\n        string memory _searchType,\r\n        bytes32 _data2\r\n    ) public view returns (Project[] memory) {\r\n        uint256 count = 0;\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (keccak256(bytes(\"OwnerId\")) == keccak256(bytes(_searchType))) {\r\n                if (projects[i].ownerIdEncrypt == _data2) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Category\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Status\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Price\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    count++;\r\n                }\r\n            }\r\n        }\r\n\r\n        Project[] memory matchingProjects = new Project[](count);\r\n        uint256 index = 0;\r\n\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (keccak256(bytes(\"OwnerId\")) == keccak256(bytes(_searchType))) {\r\n                if (projects[i].ownerIdEncrypt == _data2) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Category\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Status\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Price\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            }\r\n        }\r\n\r\n        return matchingProjects;\r\n    }\r\n\r\n    function searchTwo(\r\n        string memory _data,\r\n        string memory _data2,\r\n        string memory _searchType,\r\n        bytes32 _data3\r\n    ) public view returns (Project[] memory) {\r\n        uint256 count = 0;\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategory\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"StatusPrice\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            }\r\n        }\r\n\r\n        Project[] memory matchingProjects = new Project[](count);\r\n        uint256 index = 0;\r\n\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategory\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"StatusPrice\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            }\r\n        }\r\n\r\n        return matchingProjects;\r\n    }\r\n\r\n    function searchThree(\r\n        string memory _data,\r\n        string memory _data2,\r\n        string memory _data3,\r\n        string memory _searchType,\r\n        bytes32 _data4\r\n    ) public view returns (Project[] memory) {\r\n        uint256 count = 0;\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategoryStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdCategoryPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    count++;\r\n                }\r\n            }\r\n        }\r\n\r\n        Project[] memory matchingProjects = new Project[](count);\r\n        uint256 index = 0;\r\n\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategoryStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdCategoryPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            }\r\n        }\r\n\r\n        return matchingProjects;\r\n    }\r\n\r\n    function searchFour(\r\n        string memory _data2,\r\n        string memory _data3,\r\n        string memory _data4,\r\n        string memory _searchType,\r\n        bytes32 _data5\r\n    ) public view returns (Project[] memory) {\r\n        uint256 count = 0;\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategoryStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data5 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data3)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data4))\r\n                ) {\r\n                    count++;\r\n                }\r\n            }\r\n        }\r\n\r\n        Project[] memory matchingProjects = new Project[](count);\r\n        uint256 index = 0;\r\n\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategoryStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data5 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data3)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data4))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            }\r\n        }\r\n\r\n        return matchingProjects;\r\n    }\r\n\r\n    function searchProject(\r\n        string memory _data\r\n    ) public view returns (Project memory) {\r\n        for (uint i = 1; i <= projectCount; i++) {\r\n            if (keccak256(bytes(projects[i].name)) == keccak256(bytes(_data))) {\r\n                return projects[i];\r\n            }\r\n        }\r\n        return projects[0];\r\n    }\r\n\r\n    function balanceOf(address account) public view returns (uint) {\r\n        return address(account).balance;\r\n    }\r\n\r\n    function transfer(\r\n        uint _id,\r\n        address recipient,\r\n        uint256 amount\r\n    ) public payable {\r\n        payable(recipient).transfer(amount);\r\n        Project storage _project = projects[_id];\r\n        _project.projectStatus = \"Sold\";\r\n\r\n        projects[_id] = _project;\r\n    }\r\n}\r\n",
-  "sourcePath": "C:\\xampp\\htdocs\\brasil\\contracts\\contracts\\ProjectContract.sol",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.4.22 <0.9.0;\r\n\r\nlibrary Strings {\r\n    function concatenate(\r\n        string memory _a,\r\n        string memory _b\r\n    ) internal pure returns (string memory) {\r\n        bytes memory _ba = bytes(_a);\r\n        bytes memory _bb = bytes(_b);\r\n        string memory ab = new string(_ba.length + _bb.length);\r\n        bytes memory bab = bytes(ab);\r\n\r\n        uint k = 0;\r\n        for (uint i = 0; i < _ba.length; i++) {\r\n            bab[k++] = _ba[i];\r\n        }\r\n\r\n        for (uint i = 0; i < _bb.length; i++) {\r\n            bab[k++] = _bb[i];\r\n        }\r\n\r\n        return string(bab);\r\n    }\r\n}\r\n\r\ncontract ProjectContract {\r\n    using Strings for *;\r\n\r\n    constructor() {\r\n        createProject(\r\n            \"QmRcnWy3suBkHFxq2sQcpXwe3cNiGkduE8QN95QkVwqEqk\",\r\n            \"Up Trading Experts\",\r\n            \"Sitio web de la empresa Up Trading Experts\",\r\n            \"Software\",\r\n            \"https://uptradingexperts.com/\",\r\n            \"SATJ000704HDGLRVA4\",\r\n            \"Available\",\r\n            \"1\",\r\n            0xd89F7A34e8291FBaCd15572201b46d408E5D1DBB\r\n        );\r\n    }\r\n\r\n    uint public projectCount = 0;\r\n\r\n    struct Project {\r\n        uint id;\r\n        string img;\r\n        string name;\r\n        string description;\r\n        string category;\r\n        string link;\r\n        string ownerId;\r\n        bytes32 ownerIdEncrypt;\r\n        string projectStatus;\r\n        string price;\r\n        address account;\r\n        bytes32 projectId;\r\n        uint createdAt;\r\n    }\r\n\r\n    mapping(uint => Project) public projects;\r\n\r\n    function uniqueProject(string memory data) public pure returns (bytes32) {\r\n        bytes32 hash = keccak256(bytes(data));\r\n        return hash;\r\n    }\r\n\r\n    function createProject(\r\n        string memory _img,\r\n        string memory _name,\r\n        string memory _description,\r\n        string memory _category,\r\n        string memory _link,\r\n        string memory _ownerId,\r\n        string memory _projectStatus,\r\n        string memory _price,\r\n        address _account\r\n    ) public {\r\n        projectCount++;\r\n        bytes32 projectId = uniqueProject(_ownerId.concatenate(_name));\r\n        bytes32 ownerIdEncrypt = uniqueProject(_ownerId);\r\n\r\n        projects[projectCount] = Project(\r\n            projectCount,\r\n            _img,\r\n            _name,\r\n            _description,\r\n            _category,\r\n            _link,\r\n            _ownerId,\r\n            ownerIdEncrypt,\r\n            _projectStatus,\r\n            _price,\r\n            _account,\r\n            projectId,\r\n            block.timestamp\r\n        );\r\n    }\r\n\r\n    function updateProject(\r\n        uint _id,\r\n        string memory _img,\r\n        string memory _name,\r\n        string memory _description,\r\n        string memory _category,\r\n        string memory _link,\r\n        string memory _ownerId,\r\n        string memory _projectStatus,\r\n        string memory _price\r\n    ) public {\r\n        bytes32 projectId = uniqueProject(_ownerId.concatenate(_name));\r\n        bytes32 ownerIdEncrypt = uniqueProject(_ownerId);\r\n\r\n        Project storage _project = projects[_id];\r\n        _project.img = _img;\r\n        _project.name = _name;\r\n        _project.description = _description;\r\n        _project.category = _category;\r\n        _project.link = _link;\r\n        _project.ownerId = _ownerId;\r\n        _project.ownerIdEncrypt = ownerIdEncrypt;\r\n        _project.projectStatus = _projectStatus;\r\n        _project.price = _price;\r\n        _project.projectId = projectId;\r\n\r\n        projects[_id] = _project;\r\n    }\r\n\r\n    function deleteProject(uint _id) public {\r\n        delete projects[_id];\r\n        projectCount--;\r\n    }\r\n\r\n    function stringToBytes32(\r\n        string memory _string\r\n    ) public pure returns (bytes32) {\r\n        require(bytes(_string).length <= 32, \"String too long\");\r\n\r\n        bytes32 result;\r\n        assembly {\r\n            result := mload(add(_string, 32))\r\n        }\r\n        return result;\r\n    }\r\n\r\n    function searchOne(\r\n        string memory _data,\r\n        string memory _searchType,\r\n        bytes32 _data2\r\n    ) public view returns (Project[] memory) {\r\n        uint256 count = 0;\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (keccak256(bytes(\"OwnerId\")) == keccak256(bytes(_searchType))) {\r\n                if (projects[i].ownerIdEncrypt == _data2) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Category\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Status\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Price\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    count++;\r\n                }\r\n            }\r\n        }\r\n\r\n        Project[] memory matchingProjects = new Project[](count);\r\n        uint256 index = 0;\r\n\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (keccak256(bytes(\"OwnerId\")) == keccak256(bytes(_searchType))) {\r\n                if (projects[i].ownerIdEncrypt == _data2) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Category\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Status\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"Price\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            }\r\n        }\r\n\r\n        return matchingProjects;\r\n    }\r\n\r\n    function searchTwo(\r\n        string memory _data,\r\n        string memory _data2,\r\n        string memory _searchType,\r\n        bytes32 _data3\r\n    ) public view returns (Project[] memory) {\r\n        uint256 count = 0;\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategory\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"StatusPrice\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    count++;\r\n                }\r\n            }\r\n        }\r\n\r\n        Project[] memory matchingProjects = new Project[](count);\r\n        uint256 index = 0;\r\n\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategory\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data3 &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"StatusPrice\")) == keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data2))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            }\r\n        }\r\n\r\n        return matchingProjects;\r\n    }\r\n\r\n    function searchThree(\r\n        string memory _data,\r\n        string memory _data2,\r\n        string memory _data3,\r\n        string memory _searchType,\r\n        bytes32 _data4\r\n    ) public view returns (Project[] memory) {\r\n        uint256 count = 0;\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategoryStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdCategoryPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    count++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    count++;\r\n                }\r\n            }\r\n        }\r\n\r\n        Project[] memory matchingProjects = new Project[](count);\r\n        uint256 index = 0;\r\n\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategoryStatus\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdCategoryPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"OwnerIdStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data4 &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            } else if (\r\n                keccak256(bytes(\"CategoryStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data3))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            }\r\n        }\r\n\r\n        return matchingProjects;\r\n    }\r\n\r\n    function searchFour(\r\n        string memory _data2,\r\n        string memory _data3,\r\n        string memory _data4,\r\n        string memory _searchType,\r\n        bytes32 _data5\r\n    ) public view returns (Project[] memory) {\r\n        uint256 count = 0;\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategoryStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data5 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data3)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data4))\r\n                ) {\r\n                    count++;\r\n                }\r\n            }\r\n        }\r\n\r\n        Project[] memory matchingProjects = new Project[](count);\r\n        uint256 index = 0;\r\n\r\n        for (uint256 i = 1; i <= projectCount; i++) {\r\n            if (\r\n                keccak256(bytes(\"OwnerIdCategoryStatusPrice\")) ==\r\n                keccak256(bytes(_searchType))\r\n            ) {\r\n                if (\r\n                    projects[i].ownerIdEncrypt == _data5 &&\r\n                    keccak256(bytes(projects[i].category)) ==\r\n                    keccak256(bytes(_data2)) &&\r\n                    keccak256(bytes(projects[i].projectStatus)) ==\r\n                    keccak256(bytes(_data3)) &&\r\n                    keccak256(bytes(projects[i].price)) ==\r\n                    keccak256(bytes(_data4))\r\n                ) {\r\n                    matchingProjects[index] = projects[i];\r\n                    index++;\r\n                }\r\n            }\r\n        }\r\n\r\n        return matchingProjects;\r\n    }\r\n\r\n    function searchProject(\r\n        string memory _data\r\n    ) public view returns (Project memory) {\r\n        for (uint i = 1; i <= projectCount; i++) {\r\n            if (keccak256(bytes(projects[i].name)) == keccak256(bytes(_data))) {\r\n                return projects[i];\r\n            }\r\n        }\r\n        return projects[0];\r\n    }\r\n\r\n    function balanceOf(address account) public view returns (uint) {\r\n        return address(account).balance;\r\n    }\r\n\r\n    function transfer(uint _id) public payable {\r\n        Project storage _project = projects[_id];\r\n        _project.projectStatus = \"Sold\";\r\n\r\n        projects[_id] = _project;\r\n    }\r\n}\r\n",
+  "sourcePath": "C:\\xampp\\htdocs\\identity-block\\contracts\\ProjectContract.sol",
   "ast": {
     "absolutePath": "project:/contracts/ProjectContract.sol",
     "exportedSymbols": {
       "ProjectContract": [
-        3176
+        3164
       ],
       "Strings": [
         927
       ]
     },
-    "id": 3177,
+    "id": 3165,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
@@ -1240,7 +1240,7 @@
             "visibility": "internal"
           }
         ],
-        "scope": 3177,
+        "scope": 3165,
         "src": "69:576:2",
         "usedErrors": []
       },
@@ -1250,9 +1250,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 3176,
+        "id": 3164,
         "linearizedBaseContracts": [
-          3176
+          3164
         ],
         "name": "ProjectContract",
         "nameLocation": "658:15:2",
@@ -1514,7 +1514,7 @@
               "parameters": [],
               "src": "723:0:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "709:421:2",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -1528,7 +1528,7 @@
             "name": "projectCount",
             "nameLocation": "1150:12:2",
             "nodeType": "VariableDeclaration",
-            "scope": 3176,
+            "scope": 3164,
             "src": "1138:28:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1924,7 +1924,7 @@
             "name": "Project",
             "nameLocation": "1182:7:2",
             "nodeType": "StructDefinition",
-            "scope": 3176,
+            "scope": 3164,
             "src": "1175:352:2",
             "visibility": "public"
           },
@@ -1936,7 +1936,7 @@
             "name": "projects",
             "nameLocation": "1567:8:2",
             "nodeType": "VariableDeclaration",
-            "scope": 3176,
+            "scope": 3164,
             "src": "1535:40:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2213,7 +2213,7 @@
               ],
               "src": "1647:9:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "1584:151:2",
             "stateMutability": "pure",
             "virtual": false,
@@ -3055,7 +3055,7 @@
               "parameters": [],
               "src": "2070:0:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "1743:864:2",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -4283,7 +4283,7 @@
               "parameters": [],
               "src": "2934:0:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "2615:943:2",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -4434,7 +4434,7 @@
               "parameters": [],
               "src": "3606:0:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "3566:104:2",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -4820,7 +4820,7 @@
               ],
               "src": "3762:9:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "3678:297:2",
             "stateMutability": "pure",
             "virtual": false,
@@ -9594,7 +9594,7 @@
               ],
               "src": "4120:18:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "3983:3031:2",
             "stateMutability": "view",
             "virtual": false,
@@ -19077,7 +19077,7 @@
               ],
               "src": "7190:18:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "7022:6004:2",
             "stateMutability": "view",
             "virtual": false,
@@ -27425,7 +27425,7 @@
               ],
               "src": "13235:18:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "13034:5079:2",
             "stateMutability": "view",
             "virtual": false,
@@ -30510,7 +30510,7 @@
               ],
               "src": "18322:18:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "18121:1887:2",
             "stateMutability": "view",
             "virtual": false,
@@ -31090,7 +31090,7 @@
               ],
               "src": "20096:16:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "20016:331:2",
             "stateMutability": "view",
             "virtual": false,
@@ -31257,7 +31257,7 @@
               ],
               "src": "20411:6:2"
             },
-            "scope": 3176,
+            "scope": 3164,
             "src": "20355:113:2",
             "stateMutability": "view",
             "virtual": false,
@@ -31265,136 +31265,24 @@
           },
           {
             "body": {
-              "id": 3174,
+              "id": 3162,
               "nodeType": "Block",
-              "src": "20588:184:2",
+              "src": "20519:138:2",
               "statements": [
                 {
-                  "expression": {
-                    "arguments": [
-                      {
-                        "id": 3152,
-                        "name": "amount",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 3144,
-                        "src": "20627:6:2",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      }
-                    ],
-                    "expression": {
-                      "argumentTypes": [
-                        {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      ],
-                      "expression": {
-                        "arguments": [
-                          {
-                            "id": 3149,
-                            "name": "recipient",
-                            "nodeType": "Identifier",
-                            "overloadedDeclarations": [],
-                            "referencedDeclaration": 3142,
-                            "src": "20607:9:2",
-                            "typeDescriptions": {
-                              "typeIdentifier": "t_address",
-                              "typeString": "address"
-                            }
-                          }
-                        ],
-                        "expression": {
-                          "argumentTypes": [
-                            {
-                              "typeIdentifier": "t_address",
-                              "typeString": "address"
-                            }
-                          ],
-                          "id": 3148,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": true,
-                          "lValueRequested": false,
-                          "nodeType": "ElementaryTypeNameExpression",
-                          "src": "20599:8:2",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_address_payable_$",
-                            "typeString": "type(address payable)"
-                          },
-                          "typeName": {
-                            "id": 3147,
-                            "name": "address",
-                            "nodeType": "ElementaryTypeName",
-                            "src": "20599:8:2",
-                            "stateMutability": "payable",
-                            "typeDescriptions": {}
-                          }
-                        },
-                        "id": 3150,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "kind": "typeConversion",
-                        "lValueRequested": false,
-                        "names": [],
-                        "nodeType": "FunctionCall",
-                        "src": "20599:18:2",
-                        "tryCall": false,
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_address_payable",
-                          "typeString": "address payable"
-                        }
-                      },
-                      "id": 3151,
-                      "isConstant": false,
-                      "isLValue": false,
-                      "isPure": false,
-                      "lValueRequested": false,
-                      "memberName": "transfer",
-                      "nodeType": "MemberAccess",
-                      "src": "20599:27:2",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_function_transfer_nonpayable$_t_uint256_$returns$__$",
-                        "typeString": "function (uint256)"
-                      }
-                    },
-                    "id": 3153,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "kind": "functionCall",
-                    "lValueRequested": false,
-                    "names": [],
-                    "nodeType": "FunctionCall",
-                    "src": "20599:35:2",
-                    "tryCall": false,
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_tuple$__$",
-                      "typeString": "tuple()"
-                    }
-                  },
-                  "id": 3154,
-                  "nodeType": "ExpressionStatement",
-                  "src": "20599:35:2"
-                },
-                {
                   "assignments": [
-                    3157
+                    3145
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 3157,
+                      "id": 3145,
                       "mutability": "mutable",
                       "name": "_project",
-                      "nameLocation": "20661:8:2",
+                      "nameLocation": "20546:8:2",
                       "nodeType": "VariableDeclaration",
-                      "scope": 3174,
-                      "src": "20645:24:2",
+                      "scope": 3162,
+                      "src": "20530:24:2",
                       "stateVariable": false,
                       "storageLocation": "storage",
                       "typeDescriptions": {
@@ -31402,17 +31290,17 @@
                         "typeString": "struct ProjectContract.Project"
                       },
                       "typeName": {
-                        "id": 3156,
+                        "id": 3144,
                         "nodeType": "UserDefinedTypeName",
                         "pathNode": {
-                          "id": 3155,
+                          "id": 3143,
                           "name": "Project",
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 975,
-                          "src": "20645:7:2"
+                          "src": "20530:7:2"
                         },
                         "referencedDeclaration": 975,
-                        "src": "20645:7:2",
+                        "src": "20530:7:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Project_$975_storage_ptr",
                           "typeString": "struct ProjectContract.Project"
@@ -31421,28 +31309,28 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 3161,
+                  "id": 3149,
                   "initialValue": {
                     "baseExpression": {
-                      "id": 3158,
+                      "id": 3146,
                       "name": "projects",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 980,
-                      "src": "20672:8:2",
+                      "src": "20557:8:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Project_$975_storage_$",
                         "typeString": "mapping(uint256 => struct ProjectContract.Project storage ref)"
                       }
                     },
-                    "id": 3160,
+                    "id": 3148,
                     "indexExpression": {
-                      "id": 3159,
+                      "id": 3147,
                       "name": "_id",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 3140,
-                      "src": "20681:3:2",
+                      "src": "20566:3:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -31453,36 +31341,36 @@
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "IndexAccess",
-                    "src": "20672:13:2",
+                    "src": "20557:13:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Project_$975_storage",
                       "typeString": "struct ProjectContract.Project storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "20645:40:2"
+                  "src": "20530:40:2"
                 },
                 {
                   "expression": {
-                    "id": 3166,
+                    "id": 3154,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "expression": {
-                        "id": 3162,
+                        "id": 3150,
                         "name": "_project",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3157,
-                        "src": "20696:8:2",
+                        "referencedDeclaration": 3145,
+                        "src": "20581:8:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Project_$975_storage_ptr",
                           "typeString": "struct ProjectContract.Project storage pointer"
                         }
                       },
-                      "id": 3164,
+                      "id": 3152,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -31490,7 +31378,7 @@
                       "memberName": "projectStatus",
                       "nodeType": "MemberAccess",
                       "referencedDeclaration": 966,
-                      "src": "20696:22:2",
+                      "src": "20581:22:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
                         "typeString": "string storage ref"
@@ -31500,58 +31388,58 @@
                     "operator": "=",
                     "rightHandSide": {
                       "hexValue": "536f6c64",
-                      "id": 3165,
+                      "id": 3153,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "kind": "string",
                       "lValueRequested": false,
                       "nodeType": "Literal",
-                      "src": "20721:6:2",
+                      "src": "20606:6:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_stringliteral_1123e760cef925d0b4f685db5e1ac87aadaf1ad9f8069122a5bb03353444c386",
                         "typeString": "literal_string \"Sold\""
                       },
                       "value": "Sold"
                     },
-                    "src": "20696:31:2",
+                    "src": "20581:31:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 3167,
+                  "id": 3155,
                   "nodeType": "ExpressionStatement",
-                  "src": "20696:31:2"
+                  "src": "20581:31:2"
                 },
                 {
                   "expression": {
-                    "id": 3172,
+                    "id": 3160,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "baseExpression": {
-                        "id": 3168,
+                        "id": 3156,
                         "name": "projects",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 980,
-                        "src": "20740:8:2",
+                        "src": "20625:8:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Project_$975_storage_$",
                           "typeString": "mapping(uint256 => struct ProjectContract.Project storage ref)"
                         }
                       },
-                      "id": 3170,
+                      "id": 3158,
                       "indexExpression": {
-                        "id": 3169,
+                        "id": 3157,
                         "name": "_id",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 3140,
-                        "src": "20749:3:2",
+                        "src": "20634:3:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -31562,7 +31450,7 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
-                      "src": "20740:13:2",
+                      "src": "20625:13:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Project_$975_storage",
                         "typeString": "struct ProjectContract.Project storage ref"
@@ -31571,31 +31459,31 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 3171,
+                      "id": 3159,
                       "name": "_project",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3157,
-                      "src": "20756:8:2",
+                      "referencedDeclaration": 3145,
+                      "src": "20641:8:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Project_$975_storage_ptr",
                         "typeString": "struct ProjectContract.Project storage pointer"
                       }
                     },
-                    "src": "20740:24:2",
+                    "src": "20625:24:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Project_$975_storage",
                       "typeString": "struct ProjectContract.Project storage ref"
                     }
                   },
-                  "id": 3173,
+                  "id": 3161,
                   "nodeType": "ExpressionStatement",
-                  "src": "20740:24:2"
+                  "src": "20625:24:2"
                 }
               ]
             },
-            "functionSelector": "f8548e36",
-            "id": 3175,
+            "functionSelector": "12514bba",
+            "id": 3163,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -31603,7 +31491,7 @@
             "nameLocation": "20485:8:2",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3145,
+              "id": 3141,
               "nodeType": "ParameterList",
               "parameters": [
                 {
@@ -31611,10 +31499,10 @@
                   "id": 3140,
                   "mutability": "mutable",
                   "name": "_id",
-                  "nameLocation": "20509:3:2",
+                  "nameLocation": "20499:3:2",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3175,
-                  "src": "20504:8:2",
+                  "scope": 3163,
+                  "src": "20494:8:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -31625,62 +31513,7 @@
                     "id": 3139,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "20504:4:2",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 3142,
-                  "mutability": "mutable",
-                  "name": "recipient",
-                  "nameLocation": "20531:9:2",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 3175,
-                  "src": "20523:17:2",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 3141,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "20523:7:2",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 3144,
-                  "mutability": "mutable",
-                  "name": "amount",
-                  "nameLocation": "20559:6:2",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 3175,
-                  "src": "20551:14:2",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint256",
-                    "typeString": "uint256"
-                  },
-                  "typeName": {
-                    "id": 3143,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "20551:7:2",
+                    "src": "20494:4:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -31689,27 +31522,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "20493:79:2"
+              "src": "20493:10:2"
             },
             "returnParameters": {
-              "id": 3146,
+              "id": 3142,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "20588:0:2"
+              "src": "20519:0:2"
             },
-            "scope": 3176,
-            "src": "20476:296:2",
+            "scope": 3164,
+            "src": "20476:181:2",
             "stateMutability": "payable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 3177,
-        "src": "649:20126:2",
+        "scope": 3165,
+        "src": "649:20011:2",
         "usedErrors": []
       }
     ],
-    "src": "33:20744:2"
+    "src": "33:20629:2"
   },
   "compiler": {
     "name": "solc",
@@ -31717,7 +31550,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.14",
-  "updatedAt": "2023-06-26T18:47:10.826Z",
+  "updatedAt": "2023-06-27T16:39:15.100Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
