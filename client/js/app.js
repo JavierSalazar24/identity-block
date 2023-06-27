@@ -225,8 +225,8 @@ App = {
               ).toLocaleString()}
             </p>
             <div class="mt-1 d-flex justify-content-around">
-              <div id="buttonDownloadQR"></div>
               <div id="buttonDownloadTXT"></div>
+              <div id="buttonDownloadQR"></div>
             </div>
           </div>
         </div>`
@@ -245,14 +245,22 @@ App = {
 
       $("#qrCode svg").attr("width", "260px");
       $("#qrCode svg").attr("height", "260px");
+      $("#qrCode svg").attr("id", "svgElement");
 
-      //Creation of SVG image and QR download button
-      const blob = new Blob([qrSvg], { type: "image/svg+xml" });
+      //Convert SVG QR code to PNG and be able to download it
+      const svgString = document.getElementById("svgElement").outerHTML;
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      canvas.width = 800;
+      canvas.height = 600;
+
+      canvg(canvas, svgString);
+      const dataURL = canvas.toDataURL("image/png");
 
       $("#buttonDownloadQR").append(`
         <a class="btn btn-primary btn-sm" 
-        href="${URL.createObjectURL(blob)}" 
-        download="QR-${indetyFirstName}_${indetyLastName}_${indetyPersonalId}.svg">Download QR</a>
+        href="${dataURL}" 
+        download="QR-${indetyFirstName}_${indetyLastName}_${indetyPersonalId}.png">Download QR</a>
       `);
 
       //Creation of text file and button to download TXT about identity information
