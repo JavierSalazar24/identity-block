@@ -74,12 +74,10 @@ App = {
       const indetyUniqueId = indety[7];
       const indetyCreatedAt = indety[8];
 
-      // <button class="btn btn-danger btn-sm deleteButton" data-id="${indetyId}">Delete</button>
-
       $("#identitiesList").append(
         `<div class="card bg-dark rounded-0 mb-2 text-white">
           <div class="text-center">
-            <img src="https://ipfs.io/ipfs/${indetyImg}" alt="Image of ${indetyFirstName} ${indetyLastName}" width="300px" class="mt-4 mb-1">
+            <img src="https://ipfs.io/ipfs/${indetyImg}" alt="Image of ${indetyFirstName} ${indetyLastName}" width="340px" height="340px" class="mt-4 mb-1">
           </div>
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Identity: ${indetyFirstName} ${indetyLastName}</span>
@@ -204,8 +202,9 @@ App = {
     ) {
       $("#identitiesList").append(
         `<div class="card bg-dark rounded-0 mb-2  text-white">
-          <div class="text-center">
-            <img src="https://ipfs.io/ipfs/${indetyImg}" alt="Image of ${indetyFirstName} ${indetyLastName}" width="300px" class="mt-4 mb-1">
+          <div class="d-flex justify-content-center">
+            <img src="https://ipfs.io/ipfs/${indetyImg}" alt="Image of ${indetyFirstName} ${indetyLastName}" width="310px" class="mt-2 mb-1">
+            <div id="qrcode" class="mt-2 mb-1"></div>
           </div>
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Identity: ${indetyFirstName} ${indetyLastName}</span>
@@ -227,6 +226,12 @@ App = {
           </div>
         </div>`
       );
+
+      var qrc = new QRCode(document.getElementById("qrcode"), {
+        text: `${indetyUniqueId}`,
+        width: 310,
+        height: 310,
+      });
     } else {
       $("#identitiesList").append(
         `<div class="card bg-dark rounded-0 mb-2  text-white">
