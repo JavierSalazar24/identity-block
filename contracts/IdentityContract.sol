@@ -68,7 +68,7 @@ contract IdentityContract {
         string memory _addresss,
         string memory _birthDate,
         string memory _personalId
-    ) public {
+    ) public payable {
         identityCount++;
         bytes32 uniqueId = uniqueIdentifier(_personalId);
 
