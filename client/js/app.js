@@ -189,7 +189,6 @@ App = {
     const indetyCreatedAt = result[8];
 
     $("#identitiesList").empty();
-    // <button class="btn btn-danger btn-sm deleteButton" data-id="${indetyId}">Delete</button>
 
     if (
       indetyId > 0 &&
@@ -203,8 +202,8 @@ App = {
       $("#identitiesList").append(
         `<div class="card bg-dark rounded-0 mb-2  text-white">
           <div class="d-flex justify-content-center">
-            <img src="https://ipfs.io/ipfs/${indetyImg}" alt="Image of ${indetyFirstName} ${indetyLastName}" width="310px" class="mt-2 mb-1">
-            <div id="qrcode" class="mt-2 mb-1"></div>
+            <img src="https://ipfs.io/ipfs/${indetyImg}" alt="Image of ${indetyFirstName} ${indetyLastName}" width="260px" class="mt-3 mb-1">
+            <div id="qrCode" class="mt-3 mb-1"></div>
           </div>
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Identity: ${indetyFirstName} ${indetyLastName}</span>
@@ -220,18 +219,54 @@ App = {
             <span>Personal ID: ${indetyPersonalId}</span>
             <br>
             <span>Unique ID: ${indetyUniqueId}</span>
-            <p class="text-secondary">Identity was created ${new Date(
-              indetyCreatedAt * 1000
-            ).toLocaleString()}</p>
+            <p class="text-secondary">
+              Identity was created ${new Date(
+                indetyCreatedAt * 1000
+              ).toLocaleString()}
+            </p>
+            <div class="mt-1 d-flex justify-content-around">
+              <div id="buttonDownloadQR"></div>
+              <div id="buttonDownloadTXT"></div>
+            </div>
           </div>
         </div>`
       );
 
-      var qrc = new QRCode(document.getElementById("qrcode"), {
-        text: `${indetyUniqueId}`,
-        width: 310,
-        height: 310,
+      //QR code generation on the identity information
+      const qrCodeElement = document.getElementById("qrCode");
+      const data = JSON.stringify(result);
+
+      const qr = new qrcode(0, "H");
+      qr.addData(data);
+      qr.make();
+
+      const qrSvg = qr.createSvgTag();
+      qrCodeElement.innerHTML = qrSvg;
+
+      $("#qrCode svg").attr("width", "260px");
+      $("#qrCode svg").attr("height", "260px");
+
+      //Creation of SVG image and QR download button
+      const blob = new Blob([qrSvg], { type: "image/svg+xml" });
+
+      $("#buttonDownloadQR").append(`
+        <a class="btn btn-primary btn-sm" 
+        href="${URL.createObjectURL(blob)}" 
+        download="QR-${indetyFirstName}_${indetyLastName}_${indetyPersonalId}.svg">Download QR</a>
+      `);
+
+      //Creation of text file and button to download TXT about identity information
+      const identity = `Identity: ${indetyFirstName} ${indetyLastName}\nAddress: ${indetyAdress}\nBirth Day: ${identyBirthDay}\nPersonal ID: ${indetyPersonalId}\nUnique ID: ${indetyUniqueId}\n`;
+
+      const archiveBlob = new Blob([identity], {
+        type: "text/plain;charset=utf-8",
       });
+
+      $("#buttonDownloadTXT").append(`
+        <a class="btn btn-primary btn-sm" 
+        href="${URL.createObjectURL(archiveBlob)}" 
+        download="TXT-${indetyFirstName}_${indetyLastName}_${indetyPersonalId}.txt">Download information</a>
+      `);
     } else {
       $("#identitiesList").append(
         `<div class="card bg-dark rounded-0 mb-2  text-white">
