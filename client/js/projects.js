@@ -25,6 +25,12 @@ App = {
         confirmButtonText: '<a style="font-family: Poppins">Accept</a>',
         confirmButtonColor: "#01bbcc",
       });
+
+      $("#searchInput").prop("disabled", true);
+      $("#categorySearchInput").prop("disabled", true);
+      $("#statusSearchInput").prop("disabled", true);
+      $("#priceSearchInput").prop("disabled", true);
+      $("#searchForm button").prop("disabled", true);
     }
   },
 

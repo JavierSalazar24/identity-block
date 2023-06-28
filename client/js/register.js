@@ -24,6 +24,15 @@ App = {
         confirmButtonText: '<a style="font-family: Poppins">Accept</a>',
         confirmButtonColor: "#01bbcc",
       });
+
+      $("#pictureInput1").prop("disabled", true);
+      $("#firstNameInput").prop("disabled", true);
+      $("#lastNameInput").prop("disabled", true);
+      $("#birthDayInput").prop("disabled", true);
+      $("#personalIdInput").prop("disabled", true);
+      $("#passwordInput").prop("disabled", true);
+
+      $("#profileForm button").prop("disabled", true);
     }
   },
 

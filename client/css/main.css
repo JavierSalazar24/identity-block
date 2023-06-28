@@ -132,6 +132,10 @@ input:-webkit-autofill {
   color: #222;
 }
 
+.image-title {
+  word-break: break-all;
+}
+
 .drag-text {
   text-align: center;
 }
@@ -250,6 +254,10 @@ input:-webkit-autofill {
   color: #222;
 }
 
+.image-title1 {
+  word-break: break-all;
+}
+
 .drag-text1 {
   text-align: center;
 }
@@ -293,4 +301,33 @@ input:-webkit-autofill {
 .remove-image1:active {
   border: 0;
   transition: all 0.2s ease;
+}
+
+@media screen and (max-width: 452px) {
+  .file-upload-image {
+    max-height: 100%;
+    max-width: 100%;
+  }
+  .file-upload-image1 {
+    max-height: 100%;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .form-floating.projects_form > label {
+    font-size: 11px;
+  }
+  .form-floating.projects_form > .form-control {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  .form-floating.projects_form > label {
+    font-size: 9px;
+  }
+  .form-floating.projects_form > .form-control {
+    font-size: 12px;
+  }
 }

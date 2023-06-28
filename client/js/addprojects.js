@@ -25,6 +25,23 @@ App = {
         confirmButtonText: '<a style="font-family: Poppins">Accept</a>',
         confirmButtonColor: "#01bbcc",
       });
+
+      $("#nameInput").prop("disabled", true);
+      $("#descriptionInput").prop("disabled", true);
+      $("#categoryInput").prop("disabled", true);
+      $("#linkInput").prop("disabled", true);
+      $("#ownerIdInput").prop("disabled", true);
+      $("#statusInput").prop("disabled", true);
+      $("#priceInput").prop("disabled", true);
+      $("#pictureInput1").prop("disabled", true);
+      $("#searchInput").prop("disabled", true);
+
+      $("#categorySearchInput").prop("disabled", true);
+      $("#statusSearchInput").prop("disabled", true);
+      $("#priceSearchInput").prop("disabled", true);
+
+      $("#searchForm button").prop("disabled", true);
+      $("#projectForm button").prop("disabled", true);
     }
   },
 
