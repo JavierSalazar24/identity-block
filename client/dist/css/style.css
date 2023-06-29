@@ -1137,6 +1137,7 @@ label {
     transform-origin: 0;
     transform: skewY(-12deg);
   }
+  
 }
 .hero {
   text-align: center;
@@ -1333,6 +1334,9 @@ label {
   transform: rotateZ(-50deg);
 }
 @media (max-width: 640px) {
+  .idea-text {
+   margin: 2rem;
+  }
   .hero-cta {
     max-width: 280px;
     margin-left: auto;
