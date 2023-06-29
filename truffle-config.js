@@ -47,6 +47,11 @@ module.exports = {
       port: 7545, // Standard Ethereum port (default: none)
       network_id: "*", // Any network (default: none)
     },
+    zeniqNetwork: {
+      host: "smart1.zeniq.network",
+      port: 9545,
+      network_id: "*", // Aquí debes proporcionar el ID de red correspondiente si es necesario
+    },
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port
@@ -57,7 +62,7 @@ module.exports = {
     // websocket: true        // Enable EventEmitter interface for web3 (default: false)
     // },
     // Useful for deploying to a public network.
-    // NB: It's important to wrap the provider as a function.
+    //  e
     // ropsten: {
     // provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/YOUR-PROJECT-ID`),
     // network_id: 3,       // Ropsten's id
