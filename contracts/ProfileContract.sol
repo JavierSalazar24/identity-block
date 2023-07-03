@@ -96,16 +96,11 @@ contract ProfileContract {
             block.timestamp
         );
 
-        require(
-            bytes(users[msg.sender].username).length == 0,
-            "User already registered"
-        );
-
         bytes32 newSessionHash = keccak256(
             abi.encodePacked(msg.sender, block.timestamp)
         );
 
-        users[msg.sender] = User(_personalId, _password, false, newSessionHash);
+        users[msg.sender] = User(_personalId, _password, true, newSessionHash);
     }
 
     function updateProfile(
