@@ -46,11 +46,10 @@ module.exports = {
       host: "127.0.0.1", // Localhost (default: none)
       port: 7545, // Standard Ethereum port (default: none)
       network_id: "*", // Any network (default: none)
-    },
-    zeniqNetwork: {
-      host: "smart1.zeniq.network",
-      port: 9545,
-      network_id: "*", // Aquí debes proporcionar el ID de red correspondiente si es necesario
+      // host: "smart1.zeniq.network", // Localhost (default: none)
+      // port: 8545, // Standard Ethereum port (default: none)
+      // network_id: "383414847825", // Any network (default: none)
+      // from: "0x0a1D53b4b6CC3f87EB3A0cdd0328A2ef23A8086d",
     },
     // Another network with more advanced options...
     // advanced: {
