@@ -37,7 +37,7 @@ contract ProjectContract {
             "SATJ000704HDGLRVA4",
             "Available",
             "1",
-            0xd89F7A34e8291FBaCd15572201b46d408E5D1DBB
+            0x570cadE3c48bBeac8ed2Ad74C38BFa77ac8Dc65E
         );
     }
 

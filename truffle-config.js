@@ -51,6 +51,11 @@ module.exports = {
       // network_id: "383414847825", // Any network (default: none)
       // from: "0x0a1D53b4b6CC3f87EB3A0cdd0328A2ef23A8086d",
     },
+    zenconNetwork: {
+      host: "https://smart3.zeniq.network",     // Dirección de tu nodo de red personalizada
+      port: 9545,            // Puerto de tu nodo de red personalizada
+      network_id: "*",     // ID de red personalizado (cámbialo a tu ID)
+    }
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port

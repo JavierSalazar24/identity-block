@@ -687,27 +687,13 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
       $("#signUpId, #registerId").click(function () {
-        Swal.fire({
-          icon: "warning",
-          title:
-            '<h1 style="font-family: Poppins; font-weight: 700; color: #333">Under construction...</h1>',
-          html: '<p style="font-family: Poppins; color: #526D82">The Identity Block application is under construction.</p>',
-          confirmButtonText:
-            '<a style="font-family: Poppins; text-decoration: none; color: #fff">Accept</a>',
-          confirmButtonColor: "#01bbcc",
-        });
+        window.open("http://localhost:3000/identity.html", "_blank");
+        
       });
 
       $("#signUpProject").click(function () {
-        Swal.fire({
-          icon: "warning",
-          title:
-            '<h1 style="font-family: Poppins; font-weight: 700; color: #333">Under construction...</h1>',
-          html: '<p style="font-family: Poppins; color: #526D82">The Projects Block application is under construction.</p>',
-          confirmButtonText:
-            '<a style="font-family: Poppins; text-decoration: none; color: #fff">Accept</a>',
-          confirmButtonColor: "#01bbcc",
-        });
+        window.open("http://localhost:3000/projects.html", "_blank");
+      
       });
     </script>
   </body>
