@@ -156,7 +156,7 @@ App = {
       address,
       birthDay,
       personalId,
-      { from: App.account, value: web3.utils.toWei("0.0011", "ether") }
+      { from: App.account, value: web3.utils.toWei("0.0013", "ether") }
     );
 
     window.location.reload();
