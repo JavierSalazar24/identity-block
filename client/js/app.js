@@ -91,11 +91,7 @@ App = {
          
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Identity: ${indetyFirstName} ${indetyLastName}</span>
-            <div>
-                <button class="btn btn-success btn-sm editButton" data-id="${indetyId}" data-img="${indetyImg}" data-fisrt="${indetyFirstName}" data-last="${indetyLastName}" data-address="${indetyAdress}" data-birth="${
-          indety[5]
-        }" data-personal="${indetyPersonalId}" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil-fill"></i></button>
-            </div>
+         
           </div>
           <div class="card-body">
             <span>Address: ${indetyAdress}</span>
