@@ -109,11 +109,7 @@ App = {
           </div>
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Project name: ${projectName}</span>
-            <div>
-              <button class="btn btn-success btn-sm editButton" data-id="${projectId}" data-img="${projectImg}" data-name="${projectName}" data-description="${projectDescription}" data-category="${projectCategory}" data-link="${projectLink}" data-owner="${projectOwnerId}" data-status="${projectStatus}" data-price="${projectPrice}" data-bs-toggle="modal" data-bs-target="#editModal">
-                <i class="bi bi-pencil-fill"></i>
-              </button>
-            </div>
+           
           </div>
           <div class="card-body">
             <span>Description: ${projectDescription}</span>

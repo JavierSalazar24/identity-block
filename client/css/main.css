@@ -1,10 +1,15 @@
 body {
-  background-color: #4f709c;
+  background-color: black;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   color: #333;
   margin: 0;
   padding: 0;
+}
+
+.card-header {
+ color: #d0b786;
+ font-weight: bold;
 }
 
 :root {
@@ -228,6 +233,7 @@ input:-webkit-autofill {
   outline: none;
   opacity: 0;
   cursor: pointer;
+  display: none;
 }
 
 .image-upload-wrap1 {
@@ -235,6 +241,7 @@ input:-webkit-autofill {
   position: relative;
   border: 3px dashed #01bbcc;
   transition: 0.5s;
+  display: none;
 }
 
 .image-dropping1,

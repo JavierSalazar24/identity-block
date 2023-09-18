@@ -5,9 +5,9 @@ contract IdentityContract {
     constructor() {
         createIdentity(
             "QmX4hQ4ETRodmPLqnVL8n3bgf5jtqrpmqb6QqbMUT9DxzE",
-            "Javier Alejandro",
-            "Salazar Torres",
-            "Valle de Suchil #221",
+            "Daniel",
+            "Smith",
+            "1234 Main St, New York, NY 10030",
             "2000-07-04",
             "SATJ000704HDGLRVA4"
         );

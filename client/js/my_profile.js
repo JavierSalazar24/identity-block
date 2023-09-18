@@ -86,16 +86,10 @@ App = {
       if (indetytAccount.toUpperCase() == account.toUpperCase()) {
         $("#profilesList").append(
           `<div class="card bg-dark rounded mb-2 text-white">
-          <div class="text-center">
-            <img src="https://ipfs.io/ipfs/${indetyImg}" alt="Image of ${indetyFirstName} ${indetyLastName}" width="100%" height="350px" class="rounded mb-1">
-          </div>
+         
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Profile: ${indetyFirstName} ${indetyLastName}</span>
-            <div>
-                <button class="btn btn-success btn-sm editButton" data-id="${indetyId}" data-img="${indetyImg}" data-fisrt="${indetyFirstName}" data-last="${indetyLastName}" data-birth="${
-            indety[4]
-          }" data-personal="${indetyPersonalId}" data-bs-toggle="modal" data-bs-target="#editModalProfile"><i class="bi bi-pencil-fill"></i></button>
-            </div>
+          
           </div>
           <div class="card-body">
             <span>Birth Day: ${identyBirthDay}</span>

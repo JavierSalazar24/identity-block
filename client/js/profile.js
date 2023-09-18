@@ -76,9 +76,7 @@ App = {
 
       $("#profilesList").append(
         `<div class="card bg-dark rounded mb-2 ms-2 col-md-4 col-12 text-white">
-          <div class="text-center">
-            <img src="https://ipfs.io/ipfs/${indetyImg}" alt="Image of ${indetyFirstName} ${indetyLastName}" width="300px" class="mt-3 mb-1 rounded img-fluid">
-          </div>
+         
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Profile: ${indetyFirstName} ${indetyLastName}</span>
           </div>

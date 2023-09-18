@@ -5,8 +5,8 @@ contract ProfileContract {
     constructor() {
         createProfile(
             "QmX4hQ4ETRodmPLqnVL8n3bgf5jtqrpmqb6QqbMUT9DxzE",
-            "Javier Alejandro",
-            "Salazar Torres",
+            "Daniel",
+            "Smith",
             "2000-07-04",
             "SATJ000704HDGLRVA4",
             0x570cadE3c48bBeac8ed2Ad74C38BFa77ac8Dc65E,

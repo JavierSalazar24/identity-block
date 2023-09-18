@@ -88,9 +88,7 @@ App = {
 
       $("#identitiesList").append(
         `<div class="card bg-dark rounded-0 mb-2 text-white">
-          <div class="text-center">
-            <img src="https://ipfs.io/ipfs/${indetyImg}" alt="Image of ${indetyFirstName} ${indetyLastName}" width="80%" height="80%" class="mt-4 mb-1">
-          </div>
+         
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Identity: ${indetyFirstName} ${indetyLastName}</span>
             <div>

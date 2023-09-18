@@ -80,9 +80,7 @@ App = {
 
       let projectHTML = `
         <div class="card bg-dark mb-2 rounded text-white">
-          <div class="text-center">
-            <img src="https://ipfs.io/ipfs/${projectImg}" alt="Image of ${projectName}" width="100%" class="mb-2 img-fluid rounded">
-          </div>
+        
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Project name: ${projectName}</span>
           </div>
