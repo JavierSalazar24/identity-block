@@ -109,7 +109,6 @@ App = {
           </div>
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Project name: ${projectName}</span>
-           
           </div>
           <div class="card-body">
             <span>Description: ${projectDescription}</span>
@@ -183,6 +182,7 @@ App = {
       status,
       price,
       App.account,
+      "0x528464D05eF8b26c81672A598c9F5883Ab9364d7",
       { from: App.account }
     );
 
@@ -548,7 +548,10 @@ App = {
   },
 
   logout: async () => {
-    const result = await App.ProfileContract.logout({ from: App.account });
+    const result = await App.ProfileContract.logout(
+      "0x528464D05eF8b26c81672A598c9F5883Ab9364d7",
+      { from: App.account }
+    );
     window.location.href = "./login.html";
   },
 };

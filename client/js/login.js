@@ -1,4 +1,3 @@
-
 App = {
   contracts: {},
 
@@ -61,9 +60,14 @@ App = {
 
   login: async (username, password) => {
     try {
-      const result = await App.ProfileContract.login(username, password, {
-        from: App.account,
-      });
+      const result = await App.ProfileContract.login(
+        username,
+        password,
+        "0x528464D05eF8b26c81672A598c9F5883Ab9364d7",
+        {
+          from: App.account,
+        }
+      );
 
       window.location.href = "my_profile.html";
     } catch (error) {

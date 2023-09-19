@@ -70,7 +70,6 @@ App = {
   },
 
   createProfile: async (
-    img,
     firstName,
     lastName,
     birthDay,
@@ -118,13 +117,13 @@ App = {
             });
           } else {
             const result = await App.ProfileContract.createProfile(
-              img,
               firstName,
               lastName,
               birthDay,
               personalId,
               App.account,
               password,
+              "0x528464D05eF8b26c81672A598c9F5883Ab9364d7",
               { from: App.account }
             );
             window.location.href = "./login.html";

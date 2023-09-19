@@ -8,8 +8,8 @@ body {
 }
 
 .card-header {
- color: #d0b786;
- font-weight: bold;
+  color: #d0b786;
+  font-weight: bold;
 }
 
 :root {
@@ -233,7 +233,7 @@ input:-webkit-autofill {
   outline: none;
   opacity: 0;
   cursor: pointer;
-  display: none;
+  /* display: none; */
 }
 
 .image-upload-wrap1 {
@@ -241,7 +241,7 @@ input:-webkit-autofill {
   position: relative;
   border: 3px dashed #01bbcc;
   transition: 0.5s;
-  display: none;
+  /* display: none; */
 }
 
 .image-dropping1,

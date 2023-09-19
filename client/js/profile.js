@@ -67,12 +67,11 @@ App = {
     for (let i = 1; i <= profileCountNumber; i++) {
       const indety = await App.ProfileContract.profiles(i);
       const indetyId = indety[0].toNumber();
-      const indetyImg = indety[1];
-      const indetyFirstName = indety[2];
-      const indetyLastName = indety[3];
-      const identyBirthDay = moment(indety[4]).format("LL");
-      const indetyUniqueId = indety[6];
-      const indetyCreatedAt = indety[8];
+      const indetyFirstName = indety[1];
+      const indetyLastName = indety[2];
+      const identyBirthDay = moment(indety[3]).format("LL");
+      const indetyUniqueId = indety[5];
+      const indetyCreatedAt = indety[7];
 
       $("#profilesList").append(
         `<div class="card bg-dark rounded mb-2 ms-2 col-md-4 col-12 text-white">
@@ -121,35 +120,26 @@ App = {
     const result = await App.ProfileContract.searchProfile(id);
 
     const indetyId = result[0];
-    const indetyImg = result[1];
-    const indetyFirstName = result[2];
-    const indetyLastName = result[3];
-    const indetyAdress = result[4];
-    const identyBirthDay = moment(result[5]).format("LL");
-    const indetyUniqueId = result[7];
-    const indetyCreatedAt = result[9];
+    const indetyFirstName = result[1];
+    const indetyLastName = result[2];
+    const identyBirthDay = moment(result[3]).format("LL");
+    const indetyUniqueId = result[5];
+    const indetyCreatedAt = result[7];
 
     $("#profilesList").empty();
 
     if (
       indetyId > 0 &&
-      indetyImg != "" &&
       indetyFirstName != "" &&
       indetyLastName != "" &&
-      indetyAdress != "" &&
       identyBirthDay != ""
     ) {
       $("#profilesList").append(
         `<div class="card bg-dark rounded mb-2 ms-2 col-md-4 col-12 text-white">
-          <div class="text-center">
-            <img src="https://ipfs.io/ipfs/${indetyImg}" alt="Image of ${indetyFirstName} ${indetyLastName}" width="300px" class="mt-3 mb-1 rounded img-fluid">
-          </div>
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Profile: ${indetyFirstName} ${indetyLastName}</span>
           </div>
           <div class="card-body">
-            <span>Address: ${indetyAdress}</span>
-            <br>
             <span>Birth Day: ${identyBirthDay}</span>
             <br>
             <span>Unique ID: ${indetyUniqueId}</span>
@@ -234,7 +224,10 @@ App = {
   },
 
   logout: async () => {
-    const result = await App.ProfileContract.logout({ from: App.account });
+    const result = await App.ProfileContract.logout(
+      "0x528464D05eF8b26c81672A598c9F5883Ab9364d7",
+      { from: App.account }
+    );
     window.location.href = "./login.html";
   },
 };

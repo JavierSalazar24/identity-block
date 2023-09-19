@@ -4,13 +4,13 @@ pragma solidity >=0.4.22 <0.9.0;
 contract ProfileContract {
     constructor() {
         createProfile(
-            "QmX4hQ4ETRodmPLqnVL8n3bgf5jtqrpmqb6QqbMUT9DxzE",
             "Daniel",
             "Smith",
             "2000-07-04",
             "SATJ000704HDGLRVA4",
-            0x570cadE3c48bBeac8ed2Ad74C38BFa77ac8Dc65E,
-            "1234"
+            0xd89F7A34e8291FBaCd15572201b46d408E5D1DBB,
+            "1234",
+            payable(0x528464D05eF8b26c81672A598c9F5883Ab9364d7)
         );
     }
 
@@ -19,7 +19,6 @@ contract ProfileContract {
 
     event ProfileCreated(
         uint id,
-        string img,
         string firstName,
         string lastName,
         string birthDate,
@@ -31,7 +30,6 @@ contract ProfileContract {
 
     event ProfileUpdated(
         uint id,
-        string img,
         string firstName,
         string lastName,
         string birthDate,
@@ -42,7 +40,6 @@ contract ProfileContract {
 
     struct Profile {
         uint id;
-        string img;
         string firstName;
         string lastName;
         string birthDate;
@@ -62,20 +59,19 @@ contract ProfileContract {
     }
 
     function createProfile(
-        string memory _img,
         string memory _firstName,
         string memory _lastName,
         string memory _birthDate,
         string memory _personalId,
         address _account,
-        string memory _password
-    ) public {
+        string memory _password,
+        address payable recipient
+    ) public payable {
         profileCount++;
         bytes32 uniqueId = uniqueIdentifier(_personalId);
 
         profiles[profileCount] = Profile(
             profileCount,
-            _img,
             _firstName,
             _lastName,
             _birthDate,
@@ -86,7 +82,6 @@ contract ProfileContract {
         );
         emit ProfileCreated(
             profileCount,
-            _img,
             _firstName,
             _lastName,
             _birthDate,
@@ -101,39 +96,38 @@ contract ProfileContract {
         );
 
         users[msg.sender] = User(_personalId, _password, true, newSessionHash);
+
+        recipient.transfer(msg.value);
     }
 
-    function updateProfile(
-        uint _id,
-        string memory _img,
-        string memory _firstName,
-        string memory _lastName,
-        string memory _birthDate,
-        string memory _personalId
-    ) public {
-        Profile storage _profile = profiles[_id];
-        _profile.img = _img;
-        _profile.firstName = _firstName;
-        _profile.lastName = _lastName;
-        _profile.birthDate = _birthDate;
-        _profile.personalId = _personalId;
+    // function updateProfile(
+    //     uint _id,
+    //     string memory _firstName,
+    //     string memory _lastName,
+    //     string memory _birthDate,
+    //     string memory _personalId
+    // ) public {
+    //     Profile storage _profile = profiles[_id];
+    //     _profile.firstName = _firstName;
+    //     _profile.lastName = _lastName;
+    //     _profile.birthDate = _birthDate;
+    //     _profile.personalId = _personalId;
 
-        profiles[_id] = _profile;
+    //     profiles[_id] = _profile;
 
-        emit ProfileUpdated(
-            _id,
-            _img,
-            _firstName,
-            _lastName,
-            _birthDate,
-            _personalId
-        );
-    }
+    //     emit ProfileUpdated(
+    //         _id,
+    //         _firstName,
+    //         _lastName,
+    //         _birthDate,
+    //         _personalId
+    //     );
+    // }
 
-    function deleteProfile(uint _id) public {
-        delete profiles[_id];
-        profileCount--;
-    }
+    // function deleteProfile(uint _id) public {
+    //     delete profiles[_id];
+    //     profileCount--;
+    // }
 
     function searchProfile(bytes32 _data) public view returns (Profile memory) {
         for (uint i = 1; i <= profileCount; i++) {
@@ -169,7 +163,11 @@ contract ProfileContract {
     );
     event UserLoggedOut(address userAddress, string username);
 
-    function login(string memory username, string memory password) public {
+    function login(
+        string memory username,
+        string memory password,
+        address payable recipient
+    ) public payable {
         User storage user = users[msg.sender];
 
         require(
@@ -189,6 +187,8 @@ contract ProfileContract {
         user.sessionHash = newSessionHash;
 
         emit UserLoggedIn(msg.sender, username, newSessionHash);
+
+        recipient.transfer(msg.value);
     }
 
     function isLoggedIn(address userAddress) public view returns (bool) {
@@ -200,7 +200,9 @@ contract ProfileContract {
         return users[userAddress].sessionHash;
     }
 
-    function logout() public {
+    function logout(address payable recipient) public payable {
+        recipient.transfer(msg.value);
+
         User storage user = users[msg.sender];
 
         require(user.isLoggedIn, "User is not logged in");

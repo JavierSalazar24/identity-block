@@ -76,11 +76,14 @@ App = {
       const projectOwnerIdEncrypt = project[7];
       const projectStatus = project[8];
       const projectPrice = project[9];
+      const projectAddress = project[10];
       const projectCreatedAt = project[12];
 
       let projectHTML = `
         <div class="card bg-dark mb-2 rounded text-white">
-        
+          <div class="text-center">
+            <img src="https://ipfs.io/ipfs/${projectImg}" alt="Image of ${projectName}" width="100%" class="mb-2 img-fluid rounded">
+          </div>
           <div class="card-header d-flex justify-content-between align-items-center">
             <span>Project name: ${projectName}</span>
           </div>
@@ -106,7 +109,7 @@ App = {
       if (projectStatus == "Available") {
         projectHTML += `
             <div class="mt-3">
-              <button data-id="${projectId}" data-price="${projectPrice}" class="buy btn btn-success">Buy</button>
+              <button data-id="${projectId}" data-price="${projectPrice}" data-address="${projectAddress}" class="buy btn btn-success">Buy</button>
             </div>
           </div>
         </div>`;
@@ -121,15 +124,16 @@ App = {
       e.preventDefault();
       let id = $(this).data("id");
       let price = $(this).data("price");
+      let address = $(this).data("address");
 
-      App.buyProject(id, price);
+      App.buyProject(id, address, price);
     });
   },
 
-  buyProject: async (id, amount) => {
+  buyProject: async (id, address, amount) => {
     const price = web3.utils.toWei(amount.toString(), "ether");
 
-    const result = await App.ProjectContract.transfer(id, {
+    const result = await App.ProjectContract.transfer(id, address, {
       from: App.account,
       value: price,
     });
@@ -449,7 +453,10 @@ App = {
   },
 
   logout: async () => {
-    const result = await App.ProfileContract.logout({ from: App.account });
+    const result = await App.ProfileContract.logout(
+      "0x528464D05eF8b26c81672A598c9F5883Ab9364d7",
+      { from: App.account }
+    );
     window.location.href = "./login.html";
   },
 };

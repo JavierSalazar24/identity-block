@@ -73,40 +73,92 @@ App = {
     const identityCountNumber = identityCount.toNumber();
 
     $("#identitiesList").empty();
-
     for (let i = 1; i <= identityCountNumber; i++) {
-      const indety = await App.IdentityContract.identities(i);
-      const indetyId = indety[0].toNumber();
-      const indetyImg = indety[1];
-      const indetyFirstName = indety[2];
-      const indetyLastName = indety[3];
-      const indetyAdress = indety[4];
-      const identyBirthDay = moment(indety[5]).format("LL");
-      const indetyPersonalId = indety[6];
-      const indetyUniqueId = indety[7];
-      const indetyCreatedAt = indety[8];
+      const identy = await App.IdentityContract.identities(i);
+      const identyId = identy[0].toNumber();
+      const identyFirstName = identy[1];
+      const identyLastName = identy[2];
+      const identyAdress = identy[3];
+      const identyBirthDay = moment(identy[4]).format("LL");
+      const identyPersonalId = identy[5];
+      const identyUniqueId = identy[7];
+      const identyCreatedAt = Date(identy[8] * 1000).toLocaleString();
+
+      let identity_qr = {
+        name: `${identyFirstName} ${identyLastName}`,
+        adress: identyAdress,
+        birthday: identyBirthDay,
+        personal_id: identyPersonalId,
+        unique_id: identyUniqueId,
+        create_at: identyCreatedAt,
+      };
 
       $("#identitiesList").append(
         `<div class="card bg-dark rounded-0 mb-2 text-white">
-         
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <span>Identity: ${indetyFirstName} ${indetyLastName}</span>
-         
+          <div id="qrCode_${identyPersonalId}" class="mt-2 mb-1 text-center"></div>
+          <div class="card-header ">
+            <span>Identity: ${identyFirstName} ${identyLastName}</span>
           </div>
           <div class="card-body">
-            <span>Address: ${indetyAdress}</span>
+            <span>Address: ${identyAdress}</span>
             <br>
             <span>Birth Day: ${identyBirthDay}</span>
             <br>
-            <span>Personal ID: ${indetyPersonalId}</span>
+            <span>Personal ID: ${identyPersonalId}</span>
             <br>
-            <span>Unique ID: ${indetyUniqueId}</span>
-            <p class="text-secondary">Identity was created ${new Date(
-              indetyCreatedAt * 1000
-            ).toLocaleString()}</p>
+            <span>Unique ID: ${identyUniqueId}</span>
+            <p class="text-secondary">Identity was created ${identyCreatedAt}</p>
+            <div class="mt-1 d-flex justify-content-around">
+              <div class="buttonDownloadTXT_${identyPersonalId}"></div>
+              <div class="buttonDownloadQR_${identyPersonalId}"></div>
+            </div>
           </div>
         </div>`
       );
+
+      //QR code generation on the identity information
+      const qrCodeElement = document.getElementById(
+        `qrCode_${identyPersonalId}`
+      );
+      const data = JSON.stringify(identity_qr);
+
+      const qr = new qrcode(0, "H");
+      qr.addData(data);
+      qr.make();
+
+      const qrSvg = qr.createSvgTag();
+      qrCodeElement.innerHTML = qrSvg;
+
+      $(`#qrCode_${identyPersonalId} svg`).attr("width", "300px");
+      $(`#qrCode_${identyPersonalId} svg`).attr("height", "300px");
+      $(`#qrCode_${identyPersonalId} svg`).attr("id", "svgElement");
+
+      //Convert SVG QR code to PNG and be able to download it
+      const svgString = document.getElementById("svgElement").outerHTML;
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      canvas.width = 800;
+      canvas.height = 600;
+
+      canvg(canvas, svgString);
+      const dataURL = canvas.toDataURL("image/png");
+
+      $(`.buttonDownloadQR_${identyPersonalId}`).html(`
+        <a class="btn btn-primary btn-sm" href="${dataURL}"  download="QR-${identyFirstName}_${identyLastName}_${identyPersonalId}.png">Download QR</a>
+      `);
+
+      //Creation of text file and button to download TXT about identity information
+      const identity = `Identity: ${identyFirstName} ${identyLastName}\nAddress: ${identyAdress}\nBirth Day: ${identyBirthDay}\nPersonal ID: ${identyPersonalId}\nUnique ID: ${identyUniqueId}\n`;
+
+      const archiveBlob = new Blob([identity], {
+        type: "text/plain;charset=utf-8",
+      });
+
+      $(`.buttonDownloadTXT_${identyPersonalId}`).html(`
+        <a class="btn btn-primary btn-sm" href="${URL.createObjectURL(
+          archiveBlob
+        )}" download="TXT-${identyFirstName}_${identyLastName}_${identyPersonalId}.txt">Download information</a>
+      `);
     }
 
     $(document).on("click", ".editButton", function (e) {
@@ -136,7 +188,6 @@ App = {
   },
 
   createIdentity: async (
-    img,
     firstName,
     lastName,
     address,
@@ -144,12 +195,12 @@ App = {
     personalId
   ) => {
     const result = await App.IdentityContract.createIdentity(
-      img,
       firstName,
       lastName,
       address,
       birthDay,
       personalId,
+      "0x528464D05eF8b26c81672A598c9F5883Ab9364d7",
       { from: App.account, value: web3.utils.toWei("0.0013", "ether") }
     );
 
@@ -184,51 +235,50 @@ App = {
   searchIdentity: async (id) => {
     const result = await App.IdentityContract.searchIdentity(id);
 
-    const indetyId = result[0];
-    const indetyImg = result[1];
-    const indetyFirstName = result[2];
-    const indetyLastName = result[3];
-    const indetyAdress = result[4];
-    const identyBirthDay = moment(result[5]).format("LL");
-    const indetyPersonalId = result[6];
-    const indetyUniqueId = result[7];
-    const indetyCreatedAt = result[8];
+    const identyId = result[0];
+    const identyFirstName = result[1];
+    const identyLastName = result[2];
+    const identyAdress = result[3];
+    const identyBirthDay = moment(result[4]).format("LL");
+    const identyPersonalId = result[5];
+    const identyUniqueId = result[7];
+    const identyCreatedAt = Date(result[8] * 1000).toLocaleString();
+
+    let identity_qr = {
+      name: `${identyFirstName} ${identyLastName}`,
+      adress: identyAdress,
+      birthday: identyBirthDay,
+      personal_id: identyPersonalId,
+      unique_id: identyUniqueId,
+      create_at: identyCreatedAt,
+    };
 
     $("#identitiesList").empty();
 
     if (
-      indetyId > 0 &&
-      indetyImg != "" &&
-      indetyFirstName != "" &&
-      indetyLastName != "" &&
-      indetyAdress != "" &&
+      identyId > 0 &&
+      identyFirstName != "" &&
+      identyLastName != "" &&
+      identyAdress != "" &&
       identyBirthDay != "" &&
-      indetyPersonalId != ""
+      identyPersonalId != ""
     ) {
       $("#identitiesList").append(
         `<div class="card bg-dark rounded-0 mb-2  text-white">
-          <div class="d-flex justify-content-center">
-            <img src="https://ipfs.io/ipfs/${indetyImg}" alt="Image of ${indetyFirstName} ${indetyLastName}" width="260px" class="mt-3 mb-1">
-            <div id="qrCode" class="mt-3 mb-1"></div>
-          </div>
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <span>Identity: ${indetyFirstName} ${indetyLastName}</span>
-            <div>
-              <button class="btn btn-success btn-sm editButton" data-id="${indetyId}" data-fisrt="${indetyFirstName}" data-last="${indetyLastName}" data-address="${indetyAdress}" data-birth="${identyBirthDay}" data-personal="${indetyPersonalId}" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil-fill"></i></button>
-            </div>
+          <div id="qrCode" class="mt-2 mb-1 text-center"></div>
+          <div class="card-header">
+            <span>Identity: ${identyFirstName} ${identyLastName}</span>
           </div>
           <div class="card-body">
-            <span>Address: ${indetyAdress}</span>
+            <span>Address: ${identyAdress}</span>
             <br>
             <span>Birth Day: ${identyBirthDay}</span>
             <br>
-            <span>Personal ID: ${indetyPersonalId}</span>
+            <span>Personal ID: ${identyPersonalId}</span>
             <br>
-            <span>Unique ID: ${indetyUniqueId}</span>
+            <span>Unique ID: ${identyUniqueId}</span>
             <p class="text-secondary">
-              Identity was created ${new Date(
-                indetyCreatedAt * 1000
-              ).toLocaleString()}
+              Identity was created ${identyCreatedAt}
             </p>
             <div class="mt-1 d-flex justify-content-around">
               <div id="buttonDownloadTXT"></div>
@@ -240,7 +290,7 @@ App = {
 
       //QR code generation on the identity information
       const qrCodeElement = document.getElementById("qrCode");
-      const data = JSON.stringify(result);
+      const data = JSON.stringify(identity_qr);
 
       const qr = new qrcode(0, "H");
       qr.addData(data);
@@ -249,8 +299,8 @@ App = {
       const qrSvg = qr.createSvgTag();
       qrCodeElement.innerHTML = qrSvg;
 
-      $("#qrCode svg").attr("width", "260px");
-      $("#qrCode svg").attr("height", "260px");
+      $("#qrCode svg").attr("width", "300px");
+      $("#qrCode svg").attr("height", "300px");
       $("#qrCode svg").attr("id", "svgElement");
 
       //Convert SVG QR code to PNG and be able to download it
@@ -266,11 +316,11 @@ App = {
       $("#buttonDownloadQR").append(`
         <a class="btn btn-primary btn-sm" 
         href="${dataURL}" 
-        download="QR-${indetyFirstName}_${indetyLastName}_${indetyPersonalId}.png">Download QR</a>
+        download="QR-${identyFirstName}_${identyLastName}_${identyPersonalId}.png">Download QR</a>
       `);
 
       //Creation of text file and button to download TXT about identity information
-      const identity = `Identity: ${indetyFirstName} ${indetyLastName}\nAddress: ${indetyAdress}\nBirth Day: ${identyBirthDay}\nPersonal ID: ${indetyPersonalId}\nUnique ID: ${indetyUniqueId}\n`;
+      const identity = `Identity: ${identyFirstName} ${identyLastName}\nAddress: ${identyAdress}\nBirth Day: ${identyBirthDay}\nPersonal ID: ${identyPersonalId}\nUnique ID: ${identyUniqueId}\n`;
 
       const archiveBlob = new Blob([identity], {
         type: "text/plain;charset=utf-8",
@@ -279,7 +329,7 @@ App = {
       $("#buttonDownloadTXT").append(`
         <a class="btn btn-primary btn-sm" 
         href="${URL.createObjectURL(archiveBlob)}" 
-        download="TXT-${indetyFirstName}_${indetyLastName}_${indetyPersonalId}.txt">Download information</a>
+        download="TXT-${identyFirstName}_${identyLastName}_${identyPersonalId}.txt">Download information</a>
       `);
     } else {
       $("#identitiesList").append(

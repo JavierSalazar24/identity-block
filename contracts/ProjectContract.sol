@@ -36,10 +36,13 @@ contract ProjectContract {
             "https://uptradingexperts.com/",
             "SATJ000704HDGLRVA4",
             "Available",
-            "1",
-            0x570cadE3c48bBeac8ed2Ad74C38BFa77ac8Dc65E
+            "5",
+            0xd89F7A34e8291FBaCd15572201b46d408E5D1DBB,
+            payable(0x528464D05eF8b26c81672A598c9F5883Ab9364d7)
         );
     }
+
+    //100.001
 
     uint public projectCount = 0;
 
@@ -75,8 +78,9 @@ contract ProjectContract {
         string memory _ownerId,
         string memory _projectStatus,
         string memory _price,
-        address _account
-    ) public {
+        address _account,
+        address payable recipient
+    ) public payable {
         projectCount++;
         bytes32 projectId = uniqueProject(_ownerId.concatenate(_name));
         bytes32 ownerIdEncrypt = uniqueProject(_ownerId);
@@ -96,41 +100,43 @@ contract ProjectContract {
             projectId,
             block.timestamp
         );
+
+        recipient.transfer(msg.value);
     }
 
-    function updateProject(
-        uint _id,
-        string memory _img,
-        string memory _name,
-        string memory _description,
-        string memory _category,
-        string memory _link,
-        string memory _ownerId,
-        string memory _projectStatus,
-        string memory _price
-    ) public {
-        bytes32 projectId = uniqueProject(_ownerId.concatenate(_name));
-        bytes32 ownerIdEncrypt = uniqueProject(_ownerId);
+    // function updateProject(
+    //     uint _id,
+    //     string memory _img,
+    //     string memory _name,
+    //     string memory _description,
+    //     string memory _category,
+    //     string memory _link,
+    //     string memory _ownerId,
+    //     string memory _projectStatus,
+    //     string memory _price
+    // ) public {
+    //     bytes32 projectId = uniqueProject(_ownerId.concatenate(_name));
+    //     bytes32 ownerIdEncrypt = uniqueProject(_ownerId);
 
-        Project storage _project = projects[_id];
-        _project.img = _img;
-        _project.name = _name;
-        _project.description = _description;
-        _project.category = _category;
-        _project.link = _link;
-        _project.ownerId = _ownerId;
-        _project.ownerIdEncrypt = ownerIdEncrypt;
-        _project.projectStatus = _projectStatus;
-        _project.price = _price;
-        _project.projectId = projectId;
+    //     Project storage _project = projects[_id];
+    //     _project.img = _img;
+    //     _project.name = _name;
+    //     _project.description = _description;
+    //     _project.category = _category;
+    //     _project.link = _link;
+    //     _project.ownerId = _ownerId;
+    //     _project.ownerIdEncrypt = ownerIdEncrypt;
+    //     _project.projectStatus = _projectStatus;
+    //     _project.price = _price;
+    //     _project.projectId = projectId;
 
-        projects[_id] = _project;
-    }
+    //     projects[_id] = _project;
+    // }
 
-    function deleteProject(uint _id) public {
-        delete projects[_id];
-        projectCount--;
-    }
+    // function deleteProject(uint _id) public {
+    //     delete projects[_id];
+    //     projectCount--;
+    // }
 
     function stringToBytes32(
         string memory _string
@@ -593,10 +599,19 @@ contract ProjectContract {
         return address(account).balance;
     }
 
-    function transfer(uint _id) public payable {
+    function transfer(uint _id, address payable recipient) public payable {
         Project storage _project = projects[_id];
+
+        // Verifica que la cantidad enviada sea mayor a cero
+        require(msg.value > 0, "Please send ETH with the transaction");
+
+        // Cambia el estado del proyecto a "Vendido"
         _project.projectStatus = "Sold";
 
+        // Transfiere el ETH al destinatario
+        recipient.transfer(msg.value);
+
+        // Actualiza el estado del proyecto en el contrato
         projects[_id] = _project;
     }
 }
