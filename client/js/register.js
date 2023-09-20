@@ -123,7 +123,7 @@ App = {
               personalId,
               App.account,
               password,
-              "0x528464D05eF8b26c81672A598c9F5883Ab9364d7",
+              "0x083C1ae5Dd668EcEc2eEee69152Ee5E8BDE1CcA6",
               { from: App.account }
             );
             window.location.href = "./login.html";

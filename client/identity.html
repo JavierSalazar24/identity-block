@@ -63,7 +63,7 @@
             id="searchForm"
             autocomplete="off"
           >
-            <input
+            <!-- <input
               class="form-control me-2 bg-dark text-white search"
               id="searchInput"
               type="search"
@@ -72,28 +72,28 @@
             />
 
             <button class="btn btn-dark me-1" type="submit">Search</button>
-            <button class="btn btn-dark" type="reset">Reset</button>
+            <button class="btn btn-dark" type="reset">Reset</button> -->
           </form>
         </div>
         <div class="col-md-6 col-12 mb-4">
           <div class="card card-body mb-4 bg-dark">
-            <h1><i class="bi bi-grid"></i> Identity Block</h1>
-            <h6 class="text-secondary">
+            <h1 class="titulo"><i class="bi bi-grid custom-icon-color1"></i> Identity Block</h1>
+            <h5 class="text-secondary">
               Decentralized Digital Identity Application
-            </h6>
+            </h5>
             <br />
-            <span
-              ><i class="bi bi-wallet2"></i> Wallet: <span id="account"></span
-            ></span>
+            <span>
+              <i class="bi bi-wallet2 custom-icon-color"></i> Wallet: <span id="account" class="custom-icon-color"></span>
+            </span>
             <p>
-              <i class="bi bi-coin"></i> Balance: <span id="balance"></span> ETH
+              <i class="bi bi-coin custom-icon-color"></i> Balance: <span id="balance"></span> ETH
             </p>
           </div>
 
           <form class="card card-body bg-dark" id="identityForm">
-            <h4 class="text-center">
-              <i class="bi bi-person-badge"></i> Saves a new identity
-            </h4>
+            <h2 class="text-center custom-text">
+              <i class="bi bi-person-badge"></i> Register your identity
+            </h2>
 
             <div class="form-floating mb-2 mt-2">
               <input
@@ -104,7 +104,7 @@
                 id="firstNameInput"
                 required
               />
-              <label for="firstNameInput">Enter your first name</label>
+              <label for="firstNameInput" class="label-forms">Enter your first name</label>
             </div>
 
             <div class="form-floating mb-2">
@@ -116,7 +116,7 @@
                 id="lastNameInput"
                 required
               />
-              <label for="lastNameInput">Enter your last name</label>
+              <label for="lastNameInput" class="label-forms">Enter your last name</label>
             </div>
 
             <div class="form-floating mb-2">
@@ -128,7 +128,7 @@
                 required
                 id="addressInput"
               />
-              <label for="addressInput">Enter your address</label>
+              <label for="addressInput" class="label-forms">Enter your address</label>
             </div>
 
             <div class="form-floating mb-2">
@@ -140,22 +140,26 @@
                 required
                 id="birthDayInput"
               />
-              <label for="birthDayInput">Enter your birth day</label>
+              <label for="birthDayInput" class="label-forms">Enter your birth day</label>
             </div>
 
-            <div class="form-floating mb-2">
-              <input
-                type="text"
-                name="personalId"
-                placeholder="Enter your personal ID"
-                class="form-control bg-dark text-white inputs"
-                required
-                id="personalIdInput"
-              />
-              <label for="personalIdInput">Enter your personal ID</label>
+          <div class="form-floating mb-2">
+            <input
+              type="text"
+              name="personalId"
+              placeholder="Enter your personal ID"
+              class="form-control bg-dark text-white inputs"
+              required
+              id="personalIdInput"
+            />
+            <label for="personalIdInput" class="label-forms">Enter your personal ID</label>
+          </div>
+
+            <div class="card-final mt-3">
+              <span>Identity Validated <i class="bi bi-check-square-fill validado"></i> </span>
             </div>
 
-            <button class="btn btn-primary">
+            <button class="btn botons mt-4">
               Save <i class="bi bi-save"></i>
             </button>
           </form>

@@ -9,7 +9,7 @@ contract IdentityContract {
             "1234 Main St, New York, NY 10030",
             "2000-07-04",
             "SATJ000704HDGLRVA4",
-            payable(0x528464D05eF8b26c81672A598c9F5883Ab9364d7)
+            payable(0x083C1ae5Dd668EcEc2eEee69152Ee5E8BDE1CcA6)
         );
     }
 
@@ -77,7 +77,7 @@ contract IdentityContract {
             _addresss,
             _birthDate,
             _personalId,
-            0x528464D05eF8b26c81672A598c9F5883Ab9364d7,
+            0x083C1ae5Dd668EcEc2eEee69152Ee5E8BDE1CcA6,
             uniqueId,
             block.timestamp
         );

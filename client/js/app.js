@@ -95,22 +95,22 @@ App = {
 
       $("#identitiesList").append(
         `<div class="card bg-dark rounded-0 mb-2 text-white">
-          <div id="qrCode_${identyPersonalId}" class="mt-2 mb-1 text-center"></div>
-          <div class="card-header ">
-            <span>Identity: ${identyFirstName} ${identyLastName}</span>
-          </div>
+          <div id="qrCode_${identyPersonalId}" class="mt-4 mb-4 text-center"></div>
+          <div class="card-header mt-2">
+            <span class="idspan"> Identity: ${identyFirstName} ${identyLastName}</span>
+          </div>  
           <div class="card-body">
-            <span>Address: ${identyAdress}</span>
+            <span>Address: </span> ${identyAdress}
             <br>
-            <span>Birth Day: ${identyBirthDay}</span>
+            <span>Birth Day: </span> ${identyBirthDay}
             <br>
-            <span>Personal ID: ${identyPersonalId}</span>
+            <span>Personal ID: </span> ${identyPersonalId}
             <br>
-            <span>Unique ID: ${identyUniqueId}</span>
-            <p class="text-secondary">Identity was created ${identyCreatedAt}</p>
+            <span>Unique ID: </span>${identyUniqueId} 
+            <p class="text-secondary mt-3">Identity was created ${identyCreatedAt}</p>
             <div class="mt-1 d-flex justify-content-around">
-              <div class="buttonDownloadTXT_${identyPersonalId}"></div>
-              <div class="buttonDownloadQR_${identyPersonalId}"></div>
+              <div class="buttonDownloadTXT_${identyPersonalId} botons"></div>
+              <div class="buttonDownloadQR_${identyPersonalId} botons"></div>
             </div>
           </div>
         </div>`
@@ -144,7 +144,7 @@ App = {
       const dataURL = canvas.toDataURL("image/png");
 
       $(`.buttonDownloadQR_${identyPersonalId}`).html(`
-        <a class="btn btn-primary btn-sm" href="${dataURL}"  download="QR-${identyFirstName}_${identyLastName}_${identyPersonalId}.png">Download QR</a>
+        <a class="btn btn-sm" href="${dataURL}"  download="QR-${identyFirstName}_${identyLastName}_${identyPersonalId}.png">Download QR</a>
       `);
 
       //Creation of text file and button to download TXT about identity information
@@ -155,7 +155,7 @@ App = {
       });
 
       $(`.buttonDownloadTXT_${identyPersonalId}`).html(`
-        <a class="btn btn-primary btn-sm" href="${URL.createObjectURL(
+        <a class="btn btn-sm" href="${URL.createObjectURL(
           archiveBlob
         )}" download="TXT-${identyFirstName}_${identyLastName}_${identyPersonalId}.txt">Download information</a>
       `);
@@ -200,7 +200,7 @@ App = {
       address,
       birthDay,
       personalId,
-      "0x528464D05eF8b26c81672A598c9F5883Ab9364d7",
+      "0x083C1ae5Dd668EcEc2eEee69152Ee5E8BDE1CcA6",
       { from: App.account, value: web3.utils.toWei("0.0013", "ether") }
     );
 

@@ -338,3 +338,60 @@ input:-webkit-autofill {
     font-size: 12px;
   }
 }
+
+.titulo{
+  color:#eab24b;
+}
+
+.custom-icon-color {
+  color: #dabf8b;
+  font-size: 15px;
+}
+
+.custom-icon-color1 {
+  color: #d4d4d4;
+}
+
+.custom-text {
+  color: #d4d4d4;
+  font-size: 21px;
+}
+
+.label-forms {
+  font-size: 15px;
+}
+
+.botons{
+  background-color: #eab24b;
+}
+
+.botons:hover{
+  background-color: #fff;
+  border-color: #eab24b;
+  border-width: 5px;
+  border-style: solid;
+  color: #000;
+}
+
+.idspan{
+  color: #eab24b;
+  font-size: 17px;
+}
+
+.card-body span{
+  color: #dabf8b;
+  font-size: 15px;
+}
+
+.card-final span{
+  color: #dabf8b;
+  font-size: 15px;
+}
+
+.validado{
+  color: #8bc53e;
+}
+
+
+
+
